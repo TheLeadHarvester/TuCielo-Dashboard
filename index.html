@@ -189,7 +189,7 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
 <div class="nav">
   <button class="nt ac" data-p="overview">Overview</button>
   <button class="nt" data-p="urgency">Urgency</button>
-  <button class="nt" data-p="tasks">Tasks <span class="bdg" id="tbadge">9</span></button>
+  <button class="nt" data-p="tasks">Tasks <span class="bdg" id="tbadge">7</span></button>
   <button class="nt" data-p="deals">Deals (7)</button>
   <button class="nt" data-p="email">Email</button>
   <button class="nt" data-p="calendar">Calendar</button>
@@ -204,7 +204,7 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
 <div id="panel-overview" class="pn ac">
   <div class="mg">
     <div class="mc"><div class="ml">Pipeline</div><div class="mv">$45.80M</div><div class="ms">7 active deals</div></div>
-    <div class="mc"><div class="ml">Open tasks</div><div class="mv" id="opencount">9</div><div class="ms">Several overdue</div></div>
+    <div class="mc"><div class="ml">Open tasks</div><div class="mv" id="opencount">7</div><div class="ms">Several overdue</div></div>
     <div class="mc"><div class="ml">Contacts</div><div class="mv">122</div><div class="ms">In CRM</div></div>
     <div class="mc"><div class="ml" style="color:var(--gtx)">New</div><div class="mv" style="font-size:13px;margin-top:4px">Daytona Beach</div><div class="ms" style="color:var(--gtx)">$18M · 318 units</div></div>
   </div>
@@ -330,8 +330,6 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
   <div class="sl">Overdue</div>
   <div class="lst" style="margin-bottom:1rem">
     <div class="row" style="border-color:var(--red)"><div class="rc"><div class="rt" style="color:var(--rtx)">Call Richard . Timmerman's Walk application</div><div class="rb">Was due Jun 25 · Email sent Jun 22, no response yet · richard@firstcoastam.com</div></div></div>
-    <div class="row" style="border-color:var(--red)"><div class="rc"><div class="rt" style="color:var(--rtx)">Email Angela Estilette . Leland lunch and learn</div><div class="rb">Was due Jun 23 · aestilette@lelandmanagement.com</div></div></div>
-    <div class="row" style="border-color:var(--red)"><div class="rc"><div class="rt" style="color:var(--rtx)">W9 from Gravity Roofing . Villa Marquis</div><div class="rb">Was due Jun 27 · Justin Galuszka · justin@gravityroof.com · 407-734-1566</div></div></div>
   </div>
   <div class="sl">Future</div>
   <div class="lst">
@@ -429,7 +427,7 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
       <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/512995827427" target="_blank">Greg Rand</a></td><td style="color:var(--sec)">Elementz Reconstruction</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">LinkedIn connection Jun 7</td></tr>
       <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504991707876" target="_blank">Justin Burrows</a></td><td style="color:var(--sec)">TWI Reconstruction</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Await Baldwin Roofing intro</td></tr>
       <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/509025440475" target="_blank">Kerri Ann Costa</a></td><td style="color:var(--sec)">Leland Management</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Wait list. Follow-up Sep 1</td></tr>
-      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504959606483" target="_blank">Angela Estilette</a></td><td style="color:var(--sec)">Leland Management</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Email overdue. Lunch and learn.</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504959606483" target="_blank">Angela Estilette</a></td><td style="color:var(--sec)">Leland Management</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">On wait list for lunch and learn</td></tr>
     </tbody>
   </table>
 </div>
@@ -581,14 +579,12 @@ const TKEY='cc_tasks_v5';
 let tDone=JSON.parse(localStorage.getItem(TKEY)||'{}');
 const tasks=[
   {id:'378238384841',s:"Follow up with Richard on Timmerman's Walk",b:'Email sent Jun 22. Call if no response. richard@firstcoastam.com',y:'CALL',d:'Overdue. Was Jun 25',c:'ov'},
-  {id:'378134290120',s:'Email Angela Estilette. Leland lunch and learn',b:'aestilette@lelandmanagement.com',y:'TODO',d:'Overdue. Was Jun 23',c:'ov'},
   {id:'378932402886',s:'W9 from Gravity Roofing. Villa Marquis',b:'Justin Galuszka · justin@gravityroof.com · 407-734-1566',y:'TODO',d:'Overdue. Was Jun 27',c:'ov'},
   {id:'378930370249',s:'Follow up with Gloria Reed. Parwood Square',b:'App + Sections A and B sent Jun 25. greed@ameritechmail.com',y:'TODO',d:'Thu Jul 2 (Today)',c:'to'},
   {id:'377331485389',s:'Call Allan German. EGS International',b:'After July 4th · branded calculator + partnership next steps',y:'CALL',d:'Tue Jul 7',c:''},
   {id:'379169703672',s:'Call Randy Earls. Waterside Coquina Key South',b:'Unit breakdown + HOA dues per sq ft from PM. randy.wscoa@gmail.com',y:'CALL',d:'Wed Jul 8',c:''},
   {id:'379016883935',s:'Follow up Kerri Ann Costa. Leland wait list',b:'kcosta@lelandmanagement.com. Lunch and learn wait list status.',y:'TODO',d:'Tue Sep 1',c:''},
   {id:'375277460162',s:'Co-branded materials for SB Pro Roofing Solar',b:'Oana Stefan. Association capital improvement financing.',y:'TODO',d:'Overdue. Jun 12',c:'ov'},
-  {id:'375099076288',s:'Follow up with Michael Heil. Pines at Eagle Ridge',b:'Does not qualify. Under $250K minimum. Close out.',y:'TODO',d:'Overdue. Jun 15',c:'ov'},
 ];
 tasks.forEach(t=>{t.done=tDone[t.id]||false;});
 let cf='all';

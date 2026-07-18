@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HubSpot Command Center - Tucielo</title>
+<style>
+:root{--bg:#FBFAF7;--bg2:#F2EFE9;--bg3:#E9E5DC;--pri:#1f1d18;--sec:#6b675e;--ter:#9b9890;--bd:#E2DDD2;--bd2:#CFC9BC;--green:#1d9e75;--gbg:#E1F5EE;--gtx:#0F6E56;--blue:#378ADD;--bbg:#E6F1FB;--btx:#185FA5;--amber:#EF9F27;--abg:#FAEEDA;--atx:#854F0B;--red:#E24B4A;--rbg:#FCEBEB;--rtx:#A32D2D;--terra:#993C1D;--trbg:#FAECE7;--purple:#7C6FD8;--gray:#888780}
+@media(prefers-color-scheme:dark){:root{--bg:#1a1915;--bg2:#252420;--bg3:#302e29;--pri:#f0ede8;--sec:#a8a49b;--ter:#6b6963;--bd:#34322c;--bd2:#444139;--gbg:#13352a;--gtx:#5dcaa5;--bbg:#15293f;--btx:#7fb4ec;--abg:#3a2e15;--atx:#e0a850;--rbg:#3a1c1c;--rtx:#e89090;--trbg:#3a2018;--terra:#d98a6a}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--pri);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;min-height:100vh;background:var(--bg);border-left:.5px solid var(--bd);border-right:.5px solid var(--bd)}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem .8rem;border-bottom:.5px solid var(--bd)}
+.ht{font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+.sub{font-size:11px;color:var(--sec);margin-top:3px}
+.ld{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;animation:p 2s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.35}}
+.hlink{font-size:12px;color:var(--sec);text-decoration:none}.hlink:hover{color:var(--pri)}
+.nav{display:flex;gap:4px;padding:.6rem 1.5rem;flex-wrap:wrap;border-bottom:.5px solid var(--bd);position:sticky;top:0;background:var(--bg);z-index:10}
+.nt{font-size:12px;padding:5px 12px;border-radius:8px;border:.5px solid transparent;cursor:pointer;color:var(--sec);background:transparent;white-space:nowrap;transition:all .12s}
+.nt:hover{background:var(--bg2);color:var(--pri)}
+.nt.ac{background:var(--bg2);border-color:var(--bd2);color:var(--pri);font-weight:600}
+.bdg{background:var(--trbg);color:var(--terra);font-size:10px;padding:1px 6px;border-radius:9999px;margin-left:3px;font-weight:600}
+.pn{display:none;padding:1.25rem 1.5rem 2.5rem}.pn.ac{display:block}
+.sl{font-size:11px;font-weight:600;color:var(--sec);text-transform:uppercase;letter-spacing:.06em;margin:1.25rem 0 9px}.sl:first-child{margin-top:0}
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1rem}
+.mc{background:var(--bg2);border-radius:10px;padding:12px 14px}
+.ml{font-size:11px;color:var(--sec);margin-bottom:3px}
+.mv{font-size:22px;font-weight:600;letter-spacing:-.02em;color:var(--pri)}
+.ms{font-size:11px;color:var(--ter);margin-top:2px}
+.co{background:var(--bg2);border-radius:10px;padding:11px 14px;margin-bottom:.9rem;border:.5px solid var(--bd2)}
+.cot{font-size:12px;font-weight:600;margin-bottom:5px}
+.cor{font-size:12px;color:var(--sec);margin-bottom:3px}
+.lst{display:flex;flex-direction:column;gap:6px}
+.row{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:9px;border:.5px solid var(--bd);background:var(--bg)}
+.row:hover{background:var(--bg2)}.row.dn{opacity:.5}
+.chk{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--bd2);flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:11px;color:#fff;transition:all .12s}
+.chk:hover{border-color:var(--green);background:var(--gbg)}.chk.ck{background:var(--green);border-color:var(--green)}
+.rc{flex:1;min-width:0}
+.rt{font-size:13px;font-weight:600;color:var(--pri);margin-bottom:2px}.rt.dn{text-decoration:line-through;color:var(--sec)}
+.rb{font-size:11px;color:var(--sec);line-height:1.45;margin-bottom:4px}
+.rm{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pl{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 8px;border-radius:9999px;font-weight:500}
+.pc{background:var(--bbg);color:var(--btx)}.pt{background:var(--bg3);color:var(--sec)}
+.pg{background:var(--gbg);color:var(--gtx)}.pa{background:var(--abg);color:var(--atx)}
+.pp{background:var(--trbg);color:var(--terra)}.pbl{background:var(--bbg);color:var(--btx)}
+.dt2{font-size:11px;color:var(--ter)}
+.dt2.ov{color:var(--rtx);font-weight:600}.dt2.to{color:var(--atx);font-weight:600}.dt2.so{color:var(--btx);font-weight:600}
+.dc{border:.5px solid var(--bd);border-radius:12px;padding:13px 15px;margin-bottom:11px;background:var(--bg)}
+.dc.hot{border-color:var(--amber);border-width:1.5px}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.dn2{font-size:14px;font-weight:600;color:var(--pri)}
+.da{font-size:14px;font-weight:600;color:var(--gtx);white-space:nowrap}
+.dm{font-size:11px;color:var(--sec);margin-bottom:7px}
+.dd{font-size:12px;color:var(--sec);line-height:1.55;margin-bottom:7px}
+.pls{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+.dfs{display:flex;overflow-x:auto;padding-bottom:3px;margin-bottom:5px}
+.fg{flex:1;min-width:66px;text-align:center}
+.fi{padding:4px 2px;font-size:10px;font-weight:600;color:var(--sec);background:var(--bg2);border:.5px solid var(--bd);margin-right:1px;line-height:1.3}
+.fg.ac .fi{background:var(--gbg);color:var(--gtx);border-color:#5DCAA5}
+.fg.done .fi{color:var(--ter)}
+.fsd{font-size:9px;color:var(--ter);margin-top:2px}.fg.ac .fsd{color:var(--gtx)}
+.dal{display:flex;gap:8px;align-items:center;margin-top:8px}
+.xl{font-size:12px;color:var(--sec);display:inline-flex;align-items:center;gap:4px;text-decoration:none}.xl:hover{color:var(--pri)}
+.qb{font-size:11px;padding:3px 10px;border-radius:6px;border:.5px solid var(--bd2);background:var(--bg2);color:var(--pri);cursor:pointer;display:inline-flex;align-items:center;gap:4px}.qb:hover{background:var(--bg3)}
+.bar{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.br{display:flex;align-items:center;gap:10px}
+.bl{font-size:11px;font-weight:600;min-width:170px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--pri)}
+.bw{flex:1;background:var(--bg2);border-radius:6px;height:28px;overflow:hidden}
+.bf{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;min-width:20px}
+.ba{font-size:11px;font-weight:600;color:#fff;white-space:nowrap}
+.bp{font-size:11px;color:var(--ter);min-width:38px;text-align:right}
+.tot{font-size:13px;font-weight:600;color:var(--gtx);background:var(--gbg);padding:4px 14px;border-radius:9999px}
+.sl2{display:flex;flex-direction:column;gap:6px;margin-bottom:1.25rem}
+.sr{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;border:.5px solid var(--bd);background:var(--bg)}
+.sdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.si{flex:1;min-width:0}.sn{font-size:12px;font-weight:600;color:var(--pri)}.sd{font-size:11px;color:var(--sec);margin-top:1px}
+.sr2{text-align:right;flex-shrink:0}.sa{font-size:14px;font-weight:600;color:var(--pri)}.ss{font-size:10px;color:var(--ter)}
+.cr{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;border:.5px solid var(--bd);background:var(--bg);text-decoration:none;color:inherit;margin-bottom:5px}
+.cr:hover{background:var(--bg2)}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.ci{flex:1;min-width:0}.cn{font-size:13px;font-weight:600;color:var(--pri);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cm{font-size:11px;color:var(--sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cx{font-size:11px;color:var(--ter);text-align:right;flex-shrink:0;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.doc-card{border:.5px solid var(--bd);border-radius:12px;margin-bottom:12px;background:var(--bg);overflow:hidden}
+.doc-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;cursor:pointer}.doc-hdr:hover{background:var(--bg2)}
+.doc-left{flex:1;min-width:0}.doc-name{font-size:13px;font-weight:600;color:var(--pri)}.doc-meta{font-size:11px;color:var(--sec);margin-top:1px}
+.doc-right{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:10px}
+.doc-amt{font-size:13px;font-weight:600;color:var(--gtx)}
+.chev{font-size:13px;color:var(--ter);transition:transform .2s}.chev.open{transform:rotate(180deg)}
+.doc-body{display:none;padding:0 15px 13px}.doc-body.open{display:block}
+.doc-prog-wrap{margin-bottom:10px}
+.doc-prog-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--sec);margin-bottom:3px}
+.doc-prog-bar{height:4px;background:var(--bg2);border-radius:9999px;overflow:hidden}
+.doc-prog-fill{height:100%;border-radius:9999px;background:var(--green)}
+.doc-sec{margin-bottom:8px}
+.doc-sec-hdr{font-size:11px;font-weight:600;color:var(--sec);text-transform:uppercase;letter-spacing:.05em;padding:5px 0 3px;border-bottom:.5px solid var(--bd);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.pb-pre{font-size:10px;padding:1px 7px;border-radius:9999px;background:var(--bbg);color:var(--btx);font-weight:500}
+.pb-under{font-size:10px;padding:1px 7px;border-radius:9999px;background:var(--abg);color:var(--atx);font-weight:500}
+.doc-item{display:flex;align-items:flex-start;gap:9px;padding:6px 9px;border-radius:7px;border:.5px solid var(--bd);background:var(--bg);margin-bottom:4px;cursor:pointer}
+.doc-item:hover{background:var(--bg2)}.doc-item.ck{opacity:.55}
+.doc-chk{width:17px;height:17px;border-radius:50%;border:1.5px solid var(--bd2);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;font-size:10px;color:#fff}
+.doc-chk.ck{background:var(--green);border-color:var(--green)}
+.doc-txt{font-size:12px;line-height:1.45;color:var(--pri)}.doc-txt.ck{text-decoration:line-through;color:var(--ter)}
+.sp{display:inline-flex;align-items:center;gap:4px;font-size:10px;padding:2px 8px;border-radius:9999px;font-weight:500}
+.sp-r{background:var(--gbg);color:var(--gtx)}.sp-p{background:var(--abg);color:var(--atx)}
+.pt-table{width:100%;border-collapse:collapse;font-size:12px}
+.pt-table th{text-align:left;padding:6px 9px;font-size:11px;font-weight:600;color:var(--sec);border-bottom:.5px solid var(--bd)}
+.pt-table td{padding:7px 9px;border-bottom:.5px solid var(--bd);vertical-align:middle}
+.pt-table tr:last-child td{border-bottom:none}.pt-table tr:hover td{background:var(--bg2)}
+.pt-table a{color:var(--pri);font-weight:600;text-decoration:none}.pt-table a:hover{text-decoration:underline}
+.sdotc{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px}
+.sg{background:var(--green)}.sa2{background:var(--amber)}.sb2{background:var(--blue)}.sgr{background:var(--gray)}
+.fr{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.fb{font-size:12px;padding:4px 12px;border-radius:8px;border:.5px solid var(--bd2);background:transparent;color:var(--sec);cursor:pointer}
+.fb.ac{background:var(--bg2);color:var(--pri);font-weight:600}
+.sw3{margin-bottom:10px}
+.sw3 input{width:100%;font-size:13px;padding:8px 12px;border-radius:8px;border:.5px solid var(--bd2);background:var(--bg);color:var(--pri)}
+.sw3 input:focus{outline:none;border-color:var(--btx)}
+.cf{display:flex;flex-direction:column;gap:8px}
+.fl2{font-size:11px;font-weight:600;color:var(--sec);margin-bottom:3px}
+.fw{display:flex;flex-direction:column}
+input,select,textarea{font-size:13px;padding:8px 12px;border-radius:8px;border:.5px solid var(--bd2);background:var(--bg);color:var(--pri);width:100%;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--btx)}
+textarea{resize:vertical;min-height:140px;line-height:1.5}
+.ca{display:flex;gap:8px}
+.bsn{flex:1;padding:10px;font-size:13px;font-weight:600;border:none;border-radius:8px;background:var(--green);color:#fff;cursor:pointer;text-align:center}
+.bsn:hover{background:#188a65}
+.bdf{flex:1;padding:10px;font-size:13px;font-weight:600;border:.5px solid var(--bd2);border-radius:8px;background:var(--bg2);color:var(--pri);cursor:pointer;text-align:center}
+.bdf:hover{background:var(--bg3)}
+.e-status{font-size:12px;padding:8px 12px;border-radius:8px;text-align:center;display:none;margin-top:4px}
+.e-status.ok{background:var(--gbg);color:var(--gtx);display:block}
+.e-status.er{background:var(--rbg);color:var(--rtx);display:block}
+.tgrd{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.tbt{padding:9px 11px;border-radius:8px;border:.5px solid var(--bd2);background:var(--bg2);color:var(--pri);font-size:12px;cursor:pointer;text-align:left}
+.tbt:hover{background:var(--bg3)}
+.ttl{font-weight:600;font-size:12px;margin-bottom:2px}
+.tts{font-size:10px;color:var(--sec)}
+.dv{height:.5px;background:var(--bd);margin:10px 0}
+.scan-zone{border:1.5px dashed var(--bd2);border-radius:12px;padding:2rem 1rem;text-align:center;background:var(--bg2);margin-bottom:1rem;cursor:pointer}
+.card-form{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.full-col{grid-column:1 / -1}
+.btn{width:100%;padding:10px;font-size:13px;font-weight:600;border:.5px solid var(--bd2);border-radius:8px;background:var(--bg2);color:var(--pri);cursor:pointer;text-align:center;margin-top:8px}
+.btn:hover{background:var(--bg3)}
+.trc{border:.5px solid var(--bd);border-radius:12px;background:var(--bg);overflow:hidden;margin-bottom:10px}
+.trc.hh{border-color:var(--amber);border-width:1.5px}
+.trc.hc{border-color:var(--red);border-width:1.5px}
+.trc.hm{border-color:var(--blue);border-width:1px}
+.trc.hl{border-color:var(--green);border-width:1px}
+.hs3{height:4px;width:100%}
+.hh .hs3{background:var(--amber)}.hc .hs3{background:var(--red)}.hm .hs3{background:var(--blue)}.hl .hs3{background:var(--green)}
+.trb{padding:12px 14px}
+.trt{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.trn{font-size:13px;font-weight:600;color:var(--pri)}
+.trc3{font-size:11px;color:var(--sec);margin-top:2px}
+.hb{font-size:10px;padding:2px 9px;border-radius:9999px;flex-shrink:0;font-weight:500}
+.hbc{background:var(--rbg);color:var(--rtx)}.hbh{background:var(--abg);color:var(--atx)}.hbm{background:var(--bbg);color:var(--btx)}.hbl{background:var(--gbg);color:var(--gtx)}
+.usb{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+.usb2{background:var(--bg2);border-radius:8px;padding:7px 10px;text-align:center}
+.usv{font-size:17px;font-weight:600;color:var(--pri)}
+.usv.r{color:var(--rtx)}.usv.a{color:var(--atx)}.usv.g{color:var(--gtx)}
+.usl{font-size:10px;color:var(--sec);margin-top:1px}
+.tgs{display:flex;gap:5px;flex-wrap:wrap}
+.tg{font-size:10px;padding:2px 8px;border-radius:9999px;display:inline-flex;align-items:center;gap:3px;font-weight:500}
+.tga{background:var(--bbg);color:var(--btx)}.tgw{background:var(--abg);color:var(--atx)}.tgd{background:var(--rbg);color:var(--rtx)}.tgo{background:var(--gbg);color:var(--gtx)}
+.donut-sec{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1rem}
+.leg{display:flex;flex-direction:column;gap:8px;flex:1;min-width:150px}
+.leg-row{display:flex;align-items:center;gap:8px}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.leg-name{font-size:12px;flex:1;color:var(--pri)}
+.leg-val{font-size:12px;font-weight:600;color:var(--pri)}
+.leg-pct{font-size:10px;color:var(--ter);min-width:36px;text-align:right}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;padding:9px 14px;border-radius:8px;font-size:12px;font-weight:500;opacity:0;transition:opacity .25s;pointer-events:none;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.toast.on{opacity:1}
+.foot{padding:1.5rem;text-align:center;font-size:11px;color:var(--ter);border-top:.5px solid var(--bd)}
+@media(max-width:600px){.hdr,.nav,.pn{padding-left:1rem;padding-right:1rem}.bl{min-width:120px;font-size:10px}.tgrd{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hdr">
+  <div>
+    <div class="ht"><span class="ld"></span> HubSpot Command Center</div>
+    <div class="sub">Art Gonzalez . Tucielo . Jul 15, 2026 . 7 deals . $45.80M pipeline . 157 contacts</div>
+  </div>
+  <a class="hlink" href="https://app.hubspot.com/contacts/246442896/" target="_blank">Open HubSpot</a>
+</div>
+
+<div class="nav">
+  <button class="nt ac" data-p="overview">Overview</button>
+  <button class="nt" data-p="urgency">Urgency</button>
+  <button class="nt" data-p="tasks">Tasks <span class="bdg" id="tbadge">36</span></button>
+  <button class="nt" data-p="deals">Deals (7)</button>
+  <button class="nt" data-p="email">Email</button>
+  <button class="nt" data-p="calendar">Calendar</button>
+  <button class="nt" data-p="pipeline">Pipeline</button>
+  <button class="nt" data-p="contacts">Contacts</button>
+  <button class="nt" data-p="checklist">Doc Checklists</button>
+  <button class="nt" data-p="scanner">Card Scanner</button>
+  <button class="nt" data-p="prospecting">Prospecting</button>
+  <button class="nt" data-p="activity">Activity Log</button>
+  <button class="nt" data-p="meetprep">Meeting Prep</button>
+</div>
+
+<!-- OVERVIEW -->
+<div id="panel-overview" class="pn ac">
+  <div class="mg">
+    <div class="mc"><div class="ml">Pipeline</div><div class="mv">$45.80M</div><div class="ms">7 active deals</div></div>
+    <div class="mc"><div class="ml">Open tasks</div><div class="mv" id="opencount">36</div><div class="ms">Several overdue</div></div>
+    <div class="mc"><div class="ml">Contacts</div><div class="mv">122</div><div class="ms">In CRM</div></div>
+    <div class="mc"><div class="ml" style="color:var(--gtx)">New</div><div class="mv" style="font-size:13px;margin-top:4px">Daytona Beach</div><div class="ms" style="color:var(--gtx)">$18M · 318 units</div></div>
+  </div>
+  <div class="co">
+    <div class="cot">Coming up</div>
+    <div class="cor">Thu Jul 2 (Today) . Follow up Gloria Reed on Parwood Square application</div>
+    <div class="cor">Tue Jul 7 . Call Allan German (EGS International) after July 4th</div>
+    <div class="cor">Wed Jul 8 . Call Randy Earls . Waterside Coquina Key South unit breakdown</div>
+    <div class="cor">Watch: Waterside 1 rate deadline passed Jun 17, signatures still needed</div>
+  </div>
+  <div class="sl">Recent activity</div>
+  <div class="lst">
+    <div class="row"><div class="rc"><div class="rt">Greg Rand and Taylor Wilson added to CRM</div><div class="rb">Greg: President, Elementz Reconstruction. Taylor: Trenchless Technologies, Hinterland Group. Both LinkedIn connections.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Daytona Beach Resort and Conference Center . $18M deal added</div><div class="rb">318 units · 2700 N Atlantic Ave, Daytona Beach, FL 32118 · Volusia County · $8M developer payoff + $10M roof, garage, commercial spaces</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Parkview at Lakeshore updated to $700,000</div><div class="rb">Deal amount updated Jul 1, 2026</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Waterside at Coquina Key South . $25M deal added</div><div class="rb">624 units · seawall, foundation, road work · 9 months in · Randy Earls (Board Member) · call Jul 8</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Parwood Square . application sent to Gloria Reed (Ameri-Tech)</div><div class="rb">Only Section A + B + signed app needed for pre-approval · follow-up Jul 2</div></div></div>
+  </div>
+</div>
+
+<!-- URGENCY -->
+<div id="panel-urgency" class="pn">
+  <div class="sl" style="margin-top:0">Deal urgency · Jul 2, 2026</div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1rem">
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sec)"><span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block"></span> Critical</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sec)"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block"></span> High</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sec)"><span style="width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block"></span> Medium</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sec)"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block"></span> Low</span>
+  </div>
+  <div class="trc hh"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Waterside at Coquina Key South</div><div class="trc3">Randy Earls · Board Member · 6 days since contact</div></div><span class="hb hbh">High</span></div><div class="usb"><div class="usb2"><div class="usv a">6</div><div class="usl">Days since contact</div></div><div class="usb2"><div class="usv a">Jul 8</div><div class="usl">Follow-up call</div></div><div class="usb2"><div class="usv">$25M</div><div class="usl">Deal value</div></div></div><div class="dd">624 units. $13.2M assessment approved over 3 years, $25M total needed. HOA dues per sq ft. Randy getting unit breakdown from PM. 9 months in development.</div><div class="tgs"><span class="tg tga">Pre-App</span><span class="tg tgw">Awaiting unit data</span></div></div></div>
+  <div class="trc hh"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Waterside 1</div><div class="trc3">Melissa Johnson · Resource Property Mgmt · 14+ days since contact</div></div><span class="hb hbh">High</span></div><div class="usb"><div class="usb2"><div class="usv r">14+</div><div class="usl">Days since contact</div></div><div class="usb2"><div class="usv r">Passed</div><div class="usl">Rate deadline Jun 17</div></div><div class="usb2"><div class="usv">$700K</div><div class="usl">Deal value</div></div></div><div class="dd">Approved. All docs complete. Rate deadline passed Jun 17. Signatures still needed. HIGH urgency.</div><div class="tgs"><span class="tg tgd">Rate passed</span><span class="tg tgw">Signatures needed</span><span class="tg tgo">Docs complete</span></div><button class="qb" style="margin-top:8px" onclick="loadTpl('waterside')">Email Melissa</button></div></div>
+  <div class="trc hh"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Daytona Beach Resort and Conference Center</div><div class="trc3">318 units · Daytona Beach, FL · Volusia County</div></div><span class="hb hbh">High</span></div><div class="usb"><div class="usb2"><div class="usv r">None</div><div class="usl">No contact yet</div></div><div class="usb2"><div class="usv a">New</div><div class="usl">Just added</div></div><div class="usb2"><div class="usv">$18M</div><div class="usl">Deal value</div></div></div><div class="dd">$8M developer payoff + $10M roof, garage, and refurbish commercial spaces. Need association contact.</div><div class="tgs"><span class="tg tga">Pre-App</span><span class="tg tgd">No contact yet</span></div></div></div>
+  <div class="trc hm"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Villa Marquis Condo Association</div><div class="trc3">Tammy Smrek. Contractor: Gravity Roofing (Justin Galuszka)</div></div><span class="hb hbm">Medium</span></div><div class="usb"><div class="usb2"><div class="usv g">0</div><div class="usl">Days since contact</div></div><div class="usb2"><div class="usv a">14 days</div><div class="usl">Notice period</div></div><div class="usb2"><div class="usv">$500K</div><div class="usl">Deal value</div></div></div><div class="dd">Approved. Items sent to the lawyer, 14-day notice period underway. Certificate of Good Standing confirmed not needed. Gravity Roofing W9 still outstanding.</div><div class="tgs"><span class="tg tgo">With lawyer</span><span class="tg tgw">W9 outstanding</span></div><button class="qb" style="margin-top:8px" onclick="loadTpl('villa')">Email Tammy</button></div></div>
+  <div class="trc hm"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Parwood Square Condo Association</div><div class="trc3">Jeanne Rowney · PM: Gloria Reed (Ameri-Tech)</div></div><span class="hb hbm">Medium</span></div><div class="usb"><div class="usb2"><div class="usv g">0</div><div class="usl">Follow-up today</div></div><div class="usb2"><div class="usv g">Jul 2</div><div class="usl">Task due</div></div><div class="usb2"><div class="usv">$400K</div><div class="usl">Deal value</div></div></div><div class="dd">App + Sections A and B sent Jun 25. Follow-up today Jul 2.</div><div class="tgs"><span class="tg tga">App sent</span><span class="tg tgw">Awaiting return</span></div></div></div>
+  <div class="trc hl"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Timmerman's Walk HOA</div><div class="trc3">Richard, Lidiadary Carpio, and Tessa Clark. First Coast AM</div></div><span class="hb hbl">Low</span></div><div class="usb"><div class="usb2"><div class="usv g">0</div><div class="usl">Days since contact</div></div><div class="usb2"><div class="usv g">This week</div><div class="usl">Application expected</div></div><div class="usb2"><div class="usv">$501K</div><div class="usl">Deal value</div></div></div><div class="dd">Called Tessa Clark Jul 8. She asked about contractor requirements, advised it is the board's decision. She expects the application back by end of week.</div><div class="tgs"><span class="tg tga">Pre-App</span><span class="tg tgo">App expected this week</span></div></div></div>
+  <div class="trc hm"><div class="hs3"></div><div class="trb"><div class="trt"><div><div class="trn">Parkview at Lakeshore HOA</div><div class="trc3">Alexander Ward (Ibis Contracting) + Alfred Alicea (FirstService Residential)</div></div><span class="hb hbm">Medium</span></div><div class="usb"><div class="usb2"><div class="usv a">0</div><div class="usl">Days since contact</div></div><div class="usb2"><div class="usv a">Jul 7</div><div class="usl">Roster call</div></div><div class="usb2"><div class="usv">$700K</div><div class="usl">Deal value</div></div></div><div class="dd">66 units. Alfred sent over the Unit Owner Roster Jul 7. Pre-approval documentation complete. Still awaiting updated contract from Alex.</div><div class="tgs"><span class="tg tgo">Pre-approval ready</span><span class="tg tgw">Contract pending</span></div></div></div>
+</div>
+
+<!-- TASKS -->
+<div id="panel-tasks" class="pn">
+  <div class="fr">
+    <button class="fb ac" onclick="ft('all',this)">All</button>
+    <button class="fb" onclick="ft('call',this)">Calls</button>
+    <button class="fb" onclick="ft('todo',this)">To-dos</button>
+    <button class="fb" onclick="ft('done',this)">Completed</button>
+  </div>
+  <div style="font-size:11px;color:var(--sec);padding:8px 12px;background:var(--bg2);border-radius:8px;margin-bottom:11px">Click the circle to mark a task complete. Saves locally. Tell Claude to close it in HubSpot too.</div>
+  <div class="lst" id="task-list"></div>
+</div>
+
+<!-- DEALS -->
+<div id="panel-deals" class="pn">
+  <div class="mg" style="margin-bottom:1.25rem">
+    <div class="mc"><div class="ml">Total pipeline</div><div class="mv">$45.80M</div><div class="ms">7 active deals</div></div>
+    <div class="mc"><div class="ml">Largest</div><div class="mv" style="font-size:14px;margin-top:4px">$25M</div><div class="ms">Coquina Key South</div></div>
+    <div class="mc"><div class="ml">SLA to close</div><div class="mv" style="font-size:14px;margin-top:4px">28-37 days</div><div class="ms">42-60 to funding</div></div>
+  </div>
+  <div class="sl">Active deals</div>
+  <div class="dc hot"><div class="dh"><div><div class="dn2">Waterside at Coquina Key South Condo Assn</div><div class="dm">Seawall + Foundation + Road · Randy Earls · Board Member</div></div><div class="da">$25,000,000</div></div><div class="dd">624 units · 4850 Cobia Drive SE, Saint Petersburg, FL 33705. $13.2M assessment approved over 3 years, $25M total needed. Per sq ft dues. Unit breakdown pending from PM. 9 months in development.</div><div class="pls"><span class="pl pbl">Pre-App</span><span class="pl pa">Unit data pending</span></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/332827141855" target="_blank">Open in HubSpot</a></div></div>
+  <div class="dc"><div class="dh"><div><div class="dn2">Daytona Beach Resort and Conference Center Condo Assn</div><div class="dm">Developer payoff + Roof + Garage + Commercial · No contact yet</div></div><div class="da">$18,000,000</div></div><div class="dd">318 units · 2700 N Atlantic Ave, Daytona Beach, FL 32118 · Volusia County. $8M developer payoff + $10M roof, garage, and refurbish commercial spaces. Contact needed.</div><div class="pls"><span class="pl pbl">Pre-App</span><span class="pl pp">No contact yet</span></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/333783037679" target="_blank">Open in HubSpot</a></div></div>
+  <div class="dc"><div class="dh"><div><div class="dn2">Waterside 1</div><div class="dm">Siding · Melissa Johnson · Resource Property Mgmt</div></div><div class="da">$700,000</div></div><div class="dd">Approved. All docs complete. Rate deadline passed Jun 17. Signatures still needed.</div><div class="pls"><span class="pl pg">Doc Prep and Closing</span><span class="pl pp">Rate passed</span></div><div class="dfs"><div class="fg done"><div class="fi">Pre-App</div></div><div class="fg done"><div class="fi">Pre-Approval</div></div><div class="fg done"><div class="fi">Underwriting</div></div><div class="fg done"><div class="fi">Credit Comm.</div></div><div class="fg ac"><div class="fi">Doc Prep</div></div><div class="fg"><div class="fi">Funding</div></div><div class="fg"><div class="fi">Servicing</div></div></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/329373154030" target="_blank">Open in HubSpot</a><button class="qb" onclick="loadTpl('waterside')">Email Melissa</button></div></div>
+  <div class="dc"><div class="dh"><div><div class="dn2">Parkview at Lakeshore HOA</div><div class="dm">Roof . Alexander Ward (Ibis Contracting) + Alfred Alicea (FirstService Residential)</div></div><div class="da">$700,000</div></div><div class="dd">66 units. Jedi Management. Alfred Alicea sent over the Unit Owner Roster on Jul 7, the final item needed for underwriting. Pre-approval documentation is now complete. Still awaiting updated contract from Alex.</div><div class="pls"><span class="pl pg">Pre-approval ready</span><span class="pl pa">Contract pending</span></div><div class="dfs"><div class="fg ac"><div class="fi">Pre-App</div></div><div class="fg"><div class="fi">Pre-Approval</div></div><div class="fg"><div class="fi">Underwriting</div></div><div class="fg"><div class="fi">Credit Comm.</div></div><div class="fg"><div class="fi">Doc Prep</div></div><div class="fg"><div class="fi">Funding</div></div><div class="fg"><div class="fi">Servicing</div></div></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/330352493271" target="_blank">Open in HubSpot</a></div></div>
+  <div class="dc"><div class="dh"><div><div class="dn2">Timmerman's Walk HOA</div><div class="dm">Roof + Paint . Richard, Lidiadary Carpio, and Tessa Clark. First Coast AM</div></div><div class="da">$500,969</div></div><div class="dd">Roof $305,280. Paint $195,689. Spoke with Tessa Jul 8. She expects the application back by end of week.</div><div class="pls"><span class="pl pbl">Pre-App</span><span class="pl pg">App expected this week</span></div><div class="dfs"><div class="fg ac"><div class="fi">Pre-App</div></div><div class="fg"><div class="fi">Pre-Approval</div></div><div class="fg"><div class="fi">Underwriting</div></div><div class="fg"><div class="fi">Credit Comm.</div></div><div class="fg"><div class="fi">Doc Prep</div></div><div class="fg"><div class="fi">Funding</div></div><div class="fg"><div class="fi">Servicing</div></div></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/329567607532" target="_blank">Open in HubSpot</a></div></div>
+  <div class="dc"><div class="dh"><div><div class="dn2">Villa Marquis Condo Association</div><div class="dm">Roof . Tammy Smrek . Contractor: Gravity Roofing (Justin Galuszka)</div></div><div class="da">$500,000</div></div><div class="dd">Approved. Items sent to the lawyer. Lawyer says the notice period will take 14 days. Certificate of Good Standing was asked about, confirmed not needed. Gravity Roofing W9 still outstanding.</div><div class="pls"><span class="pl pg">Doc Prep and Closing</span><span class="pl pa">14-day notice pending</span></div><div class="dfs"><div class="fg done"><div class="fi">Pre-App</div></div><div class="fg done"><div class="fi">Pre-Approval</div></div><div class="fg done"><div class="fi">Underwriting</div></div><div class="fg done"><div class="fi">Credit Comm.</div></div><div class="fg ac"><div class="fi">Doc Prep</div></div><div class="fg"><div class="fi">Funding</div></div><div class="fg"><div class="fi">Servicing</div></div></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/329489649379" target="_blank">Open in HubSpot</a><button class="qb" onclick="loadTpl('villa')">Email Tammy</button></div></div>
+  <div class="dc"><div class="dh"><div><div class="dn2">Parwood Square Condo Association</div><div class="dm">Roof · Jeanne Rowney · PM: Gloria Reed (Ameri-Tech)</div></div><div class="da">$400,000</div></div><div class="dd">App + Sections A and B sent Jun 25 to Gloria Reed. Follow-up Jul 2 (today).</div><div class="pls"><span class="pl pbl">Pre-App</span><span class="pl pc">App sent Jun 25</span></div><div class="dfs"><div class="fg ac"><div class="fi">Pre-App</div></div><div class="fg"><div class="fi">Pre-Approval</div></div><div class="fg"><div class="fi">Underwriting</div></div><div class="fg"><div class="fi">Credit Comm.</div></div><div class="fg"><div class="fi">Doc Prep</div></div><div class="fg"><div class="fi">Funding</div></div><div class="fg"><div class="fi">Servicing</div></div></div><div class="dal"><a class="xl" href="https://app.hubspot.com/contacts/246442896/record/0-3/329491495629" target="_blank">Open in HubSpot</a><button class="qb" onclick="loadTpl('parwood')">Email Jeanne/Gloria</button></div></div>
+</div>
+
+<!-- EMAIL -->
+<div id="panel-email" class="pn">
+  <div class="sl" style="margin-top:0">Quick templates</div>
+  <div class="tgrd">
+    <button class="tbt" onclick="loadTpl('waterside')"><div class="ttl">Waterside 1 follow-up</div><div class="tts">Rate passed. Need signatures.</div></button>
+    <button class="tbt" onclick="loadTpl('villa')"><div class="ttl">Villa Marquis</div><div class="tts">Treasurer + W9 + ID concern</div></button>
+    <button class="tbt" onclick="loadTpl('parwood')"><div class="ttl">Parwood Square</div><div class="tts">Follow up on application with Gloria</div></button>
+    <button class="tbt" onclick="loadTpl('timmerman')"><div class="ttl">Timmerman's Walk</div><div class="tts">Application follow-up to Richard</div></button>
+    <button class="tbt" onclick="loadTpl('checklist')"><div class="ttl">Doc checklist</div><div class="tts">Send due diligence list</div></button>
+    <button class="tbt" onclick="loadTpl('blank')"><div class="ttl">Blank email</div><div class="tts">Start from scratch</div></button>
+  </div>
+  <div class="dv"></div>
+  <div class="cf">
+    <div class="fw"><div class="fl2">To</div>
+      <select id="e-sel" onchange="utfs()" style="margin-bottom:4px">
+        <option value="">Select a contact</option>
+        <option value="randy.wscoa@gmail.com">Randy Earls - Waterside Coquina Key South</option>
+        <option value="richard@firstcoastam.com">Richard - First Coast AM</option>
+        <option value="lidiadary@firstcoastam.com">Lidiadary Carpio - First Coast AM</option>
+        <option value="tammysmarie@gmail.com">Tammy Smrek - Villa Marquis</option>
+        <option value="greed@ameritechmail.com">Gloria Reed - Ameri-Tech</option>
+        <option value="jeanneroney@gmail.com">Jeanne Rowney - Parwood Square</option>
+        <option value="justin@gravityroof.com">Justin Galuszka - Gravity Roofing</option>
+        <option value="Allan@egsinternationalllc.com">Allan German - EGS International</option>
+        <option value="alex@ibiscontracting.com">Alexander Ward - Ibis Contracting</option>
+        <option value="aestilette@lelandmanagement.com">Angela Estilette - Leland Management</option>
+        <option value="kcosta@lelandmanagement.com">Kerri Ann Costa - Leland Management</option>
+        <option value="justin@twiflorida.com">Justin Burrows - TWI Reconstruction</option>
+        <option value="twilson@hinterlandgroup.com">Taylor Wilson - Hinterland Group</option>
+        <option value="greg@elementzmfs.com">Greg Rand - Elementz Reconstruction</option>
+        <option value="mjohnson@resourcepropertymgmt.com">Melissa Johnson - Resource Property Mgmt</option>
+      </select>
+      <input type="email" id="e-to" placeholder="or type email address">
+    </div>
+    <div class="fw"><div class="fl2">Subject</div><input type="text" id="e-sub" placeholder="Subject line"></div>
+    <div class="fw"><div class="fl2">Message</div><textarea id="e-body" placeholder="Write your message here..."></textarea></div>
+    <div id="e-status" class="e-status"></div>
+    <div class="ca">
+      <button class="bdf" onclick="copyEmail()">Copy to clipboard</button>
+      <button class="bsn" onclick="openMailto()">Open in email app</button>
+    </div>
+  </div>
+</div>
+
+<!-- CALENDAR -->
+<div id="panel-calendar" class="pn">
+  <div class="sl" style="margin-top:0">Today. Tuesday Jul 14</div>
+  <div class="lst" style="margin-bottom:1rem">
+    <div class="row"><div class="rc"><div class="rt">3:00 PM. TuCielo Solstice Meeting</div><div class="rb">Josue Riverson, Solstice Security and Logistics. Microsoft Teams.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">3:30 PM. Sales Team Meeting</div><div class="rb">Weekly recurring. Microsoft Teams.</div></div></div>
+  </div>
+  <div class="sl">This week</div>
+  <div class="lst" style="margin-bottom:1rem">
+    <div class="row"><div class="rc"><div class="rt">Thu Jul 16. Isaac Gonzalez birthday</div><div class="rb">Personal</div></div></div>
+  </div>
+  <div class="sl">Next week</div>
+  <div class="lst" style="margin-bottom:1rem">
+    <div class="row"><div class="rc"><div class="rt">Mon Jul 20, 12:00 PM. Lunch Meeting with TRC Engineers, Tucielo and EGS International</div><div class="rb">Alcuz Onate, Suly Encalada. Il Forno Ristorante, 9350 NW 25th Street, Doral.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Tue Jul 21, 12:00 PM. Introductory Meeting with Tucielo and Hillman Engineering</div><div class="rb">Kevin DuBrey. 1700 NW 64th Street, Fort Lauderdale.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Tue Jul 21, 3:30 PM. Sales Team Meeting</div><div class="rb">Weekly recurring. Microsoft Teams.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Tue Jul 21. David Kelly birthday</div><div class="rb">Personal</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Wed Jul 22, 12:00 PM. Haircut, Westside Barbershop</div><div class="rb">2800 N Mac Dill Ave, Tampa. Personal.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Wed Jul 22, 1:00 PM. Ygrene Town Hall (Session 1)</div><div class="rb">Microsoft Teams.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Wed Jul 22, 4:00 PM. Ygrene Town Hall (Session 2, tentative)</div><div class="rb">Microsoft Teams.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Thu Jul 23, 1:00 PM. Meet The Managers CAI Orlando</div><div class="rb">Inter and Co Stadium, 655 W Church St, Orlando.</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Thu Jul 23. Tyler Madden birthday</div><div class="rb">Personal</div></div></div>
+  </div>
+  <div class="sl">Week of Jul 25</div>
+  <div class="lst" style="margin-bottom:1rem">
+    <div class="row"><div class="rc"><div class="rt">Sat Jul 25. Feast of Saint James the Apostle</div><div class="rb">Observance</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Sun Jul 26. Chicken Nug birthday</div><div class="rb">Personal</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Mon Jul 27. Angel Tamayo birthday</div><div class="rb">Personal</div></div></div>
+    <div class="row"><div class="rc"><div class="rt">Tue Jul 28, 3:30 PM. Sales Team Meeting</div><div class="rb">Weekly recurring. Microsoft Teams.</div></div></div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div id="panel-pipeline" class="pn">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
+    <div><div style="font-size:14px;font-weight:600">Pipeline revenue</div><div style="font-size:12px;color:var(--sec);margin-top:2px">7 active deals · Jul 2, 2026</div></div>
+    <div class="tot">$45,800,969 total</div>
+  </div>
+  <div class="sl">Deal breakdown</div>
+  <div class="bar">
+    <div class="br"><div class="bl">Waterside Coquina Key S.</div><div class="bw"><div class="bf" style="width:100%;background:#E24B4A"><span class="ba">$25,000,000</span></div></div><div class="bp">54.6%</div></div>
+    <div class="br"><div class="bl">Daytona Beach Resort</div><div class="bw"><div class="bf" style="width:72%;background:#7C6FD8"><span class="ba">$18,000,000</span></div></div><div class="bp">39.3%</div></div>
+    <div class="br"><div class="bl">Waterside 1</div><div class="bw"><div class="bf" style="width:2.8%;background:#378ADD;min-width:52px"><span class="ba">$700K</span></div></div><div class="bp">1.5%</div></div>
+    <div class="br"><div class="bl">Parkview at Lakeshore</div><div class="bw"><div class="bf" style="width:2.8%;background:#EF9F27;min-width:52px"><span class="ba">$700K</span></div></div><div class="bp">1.5%</div></div>
+    <div class="br"><div class="bl">Timmerman's Walk</div><div class="bw"><div class="bf" style="width:1.9%;background:#888780;min-width:46px"><span class="ba">$501K</span></div></div><div class="bp">1.1%</div></div>
+    <div class="br"><div class="bl">Villa Marquis</div><div class="bw"><div class="bf" style="width:1.9%;background:#5DB4D4;min-width:46px"><span class="ba">$500K</span></div></div><div class="bp">1.1%</div></div>
+    <div class="br"><div class="bl">Parwood Square</div><div class="bw"><div class="bf" style="width:1.5%;background:#3B6D11;min-width:42px"><span class="ba">$400K</span></div></div><div class="bp">0.9%</div></div>
+  </div>
+  <div style="font-size:11px;color:var(--ter);margin-bottom:1.25rem">Coquina Key South ($25M) + Daytona Beach ($18M) represent 93.9% of pipeline. Remaining 5 deals: $2,800,969.</div>
+  <div class="sl">By stage</div>
+  <div class="sl2">
+    <div class="sr"><div class="sdot" style="background:var(--amber)"></div><div class="si"><div class="sn">Pre-App / Application</div><div class="sd">5 deals · Coquina Key South, Daytona Beach, Parkview, Timmerman's Walk, Parwood Square</div></div><div class="sr2"><div class="sa">$44,600,969</div><div class="ss">97.4%</div></div></div>
+    <div class="sr"><div class="sdot" style="background:var(--green)"></div><div class="si"><div class="sn">Doc Prep and Loan Closing</div><div class="sd">2 deals · Waterside 1 + Villa Marquis · all docs complete</div></div><div class="sr2"><div class="sa">$1,200,000</div><div class="ss">2.6%</div></div></div>
+  </div>
+  <div class="sl">Visual breakdown</div>
+  <div class="donut-sec">
+    <canvas id="donut" width="160" height="160"></canvas>
+    <div class="leg">
+      <div class="leg-row"><div class="leg-dot" style="background:#E24B4A"></div><div class="leg-name">Waterside Coquina Key S.</div><div class="leg-val">$25M</div><div class="leg-pct">54.6%</div></div>
+      <div class="leg-row"><div class="leg-dot" style="background:#7C6FD8"></div><div class="leg-name">Daytona Beach Resort</div><div class="leg-val">$18M</div><div class="leg-pct">39.3%</div></div>
+      <div class="leg-row"><div class="leg-dot" style="background:#378ADD"></div><div class="leg-name">Waterside 1</div><div class="leg-val">$700K</div><div class="leg-pct">1.5%</div></div>
+      <div class="leg-row"><div class="leg-dot" style="background:#EF9F27"></div><div class="leg-name">Parkview Lakeshore</div><div class="leg-val">$700K</div><div class="leg-pct">1.5%</div></div>
+      <div class="leg-row"><div class="leg-dot" style="background:#888780"></div><div class="leg-name">Timmerman's Walk</div><div class="leg-val">$501K</div><div class="leg-pct">1.1%</div></div>
+      <div class="leg-row"><div class="leg-dot" style="background:#5DB4D4"></div><div class="leg-name">Villa Marquis</div><div class="leg-val">$500K</div><div class="leg-pct">1.1%</div></div>
+      <div class="leg-row"><div class="leg-dot" style="background:#3B6D11"></div><div class="leg-name">Parwood Square</div><div class="leg-val">$400K</div><div class="leg-pct">0.9%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTS -->
+<div id="panel-contacts" class="pn">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><span style="font-size:13px;font-weight:600">All contacts</span><span id="cnt-lbl" style="font-size:12px;color:var(--sec)">122 contacts</span></div>
+  <div class="sw3"><input type="text" id="c-search" placeholder="Search by name, company, or title..." oninput="fc()"></div>
+  <div class="lst" id="all-c"></div>
+</div>
+
+<!-- DOC CHECKLISTS -->
+<div id="panel-checklist" class="pn">
+  <div style="font-size:12px;color:var(--sec);margin-bottom:13px;line-height:1.5">Sections A, B and Signed Application unlock pre-approval. C through G required for full underwriting. Progress saves in this browser automatically.</div>
+  <div id="doc-container"></div>
+</div>
+
+<!-- CARD SCANNER -->
+<div id="panel-scanner" class="pn">
+  <div class="scan-zone" onclick="document.getElementById('sf').click()">
+    <div style="font-size:28px;color:var(--ter);margin-bottom:8px">&#128247;</div>
+    <div style="font-size:14px;font-weight:600;color:var(--pri);margin-bottom:4px">Scan a business card</div>
+    <p style="margin:0;font-size:12px;color:var(--sec)">Click to upload a photo, or fill in manually below</p>
+    <input type="file" id="sf" accept="image/*" style="display:none" onchange="handleScan(this)">
+  </div>
+  <div class="sl">Contact details</div>
+  <div class="card-form">
+    <input type="text" id="bc-first" placeholder="First name">
+    <input type="text" id="bc-last" placeholder="Last name">
+    <input type="email" id="bc-email" placeholder="Email" class="full-col">
+    <input type="text" id="bc-phone" placeholder="Phone">
+    <input type="text" id="bc-company" placeholder="Company">
+    <input type="text" id="bc-title" class="full-col" placeholder="Job title">
+  </div>
+  <div style="font-size:11px;color:var(--sec);margin-bottom:8px">After filling in the details, copy them and tell Claude to add the contact to your HubSpot CRM.</div>
+  <button class="btn" onclick="copyScannerContact()">Copy contact details</button>
+</div>
+
+<!-- PROSPECTING -->
+<div id="panel-prospecting" class="pn">
+  <div class="sl" style="margin-top:0">Prospect pipeline</div>
+  <table class="pt-table">
+    <thead><tr><th>Name / Deal</th><th>Company</th><th>Status</th><th>Next action</th></tr></thead>
+    <tbody>
+      <tr><td>Boynton Beach roof opportunity</td><td style="color:var(--sec)">Sourced via Sean Donnelly, Roof Ez</td><td><span class="sdotc sgr"></span>Research</td><td style="color:var(--sec)">Need association name. Est. $1.8M</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/509508651726" target="_blank">Randy Earls</a></td><td style="color:var(--sec)">Waterside Coquina Key South</td><td><span class="sdotc sa2"></span>Connected</td><td style="color:var(--sec)">Call Jul 8. Unit breakdown from PM</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-3/333783037679" target="_blank">Daytona Beach Resort</a></td><td style="color:var(--sec)">Daytona Beach, FL · Volusia County</td><td><span class="sdotc sgr"></span>Research</td><td style="color:var(--sec)">Need association contact · $18M</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/500569459420" target="_blank">Tammy Smrek</a></td><td style="color:var(--sec)">Villa Marquis</td><td><span class="sdotc sa2"></span>Connected</td><td style="color:var(--sec)">Address ID concern. Closing soon.</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/498975307509" target="_blank">Melissa Johnson</a></td><td style="color:var(--sec)">Resource Property Mgmt</td><td><span class="sdotc sa2"></span>Connected</td><td style="color:var(--sec)">Waterside 1. Signatures needed ASAP</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504993528531" target="_blank">Gloria Reed</a></td><td style="color:var(--sec)">Ameri-Tech</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Follow-up today Jul 2. Parwood app review</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504966753001" target="_blank">Richard</a></td><td style="color:var(--sec)">First Coast AM</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Call. Timmerman's Walk application overdue</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/508961481443" target="_blank">Justin Galuszka</a></td><td style="color:var(--sec)">Gravity Roofing</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">W9 follow-up. Overdue.</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/500981179076" target="_blank">Allan German</a></td><td style="color:var(--sec)">EGS International</td><td><span class="sdotc sg"></span>Meeting set</td><td style="color:var(--sec)">Call Jul 7 + August joint event</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/512988606147" target="_blank">Taylor Wilson</a></td><td style="color:var(--sec)">Hinterland Group</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Sent calculator screenshot Jul 2</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/512995827427" target="_blank">Greg Rand</a></td><td style="color:var(--sec)">Elementz Reconstruction</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">LinkedIn connection Jun 7</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504991707876" target="_blank">Justin Burrows</a></td><td style="color:var(--sec)">TWI Reconstruction</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Await Baldwin Roofing intro</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/509025440475" target="_blank">Kerri Ann Costa</a></td><td style="color:var(--sec)">Leland Management</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">Wait list. Follow-up Sep 1</td></tr>
+      <tr><td><a href="https://app.hubspot.com/contacts/246442896/record/0-1/504959606483" target="_blank">Angela Estilette</a></td><td style="color:var(--sec)">Leland Management</td><td><span class="sdotc sb2"></span>Connected</td><td style="color:var(--sec)">On wait list for lunch and learn</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ACTIVITY LOG -->
+<div id="panel-activity" class="pn">
+  <div class="sl" style="margin-top:0">Activity log . Most recent first</div>
+  <div class="fr">
+    <button class="fb ac" onclick="fa('all',this)">All</button>
+    <button class="fb" onclick="fa('call',this)">Calls</button>
+    <button class="fb" onclick="fa('email',this)">Emails</button>
+  </div>
+  <div class="lst" id="activity-list"></div>
+</div>
+
+<!-- MEETING PREP -->
+<div id="panel-meetprep" class="pn">
+  <div class="sl" style="margin-top:0">Meeting prep</div>
+  <div style="font-size:12px;color:var(--sec);margin-bottom:12px">Select a contact to pull up everything you need before a call.</div>
+  <select id="mp-select" onchange="loadMeetPrep()" style="margin-bottom:16px">
+    <option value="">Select a contact...</option>
+    <option value="randy">Randy Earls . Waterside Coquina Key South ($25M)</option>
+    <option value="melissa">Melissa Johnson . Waterside 1 ($700K)</option>
+    <option value="tammy">Tammy Smrek . Villa Marquis ($500K)</option>
+    <option value="gloria">Gloria Reed . Parwood Square ($400K)</option>
+    <option value="richard">Richard . Timmerman's Walk ($501K)</option>
+    <option value="alex">Alexander Ward . Parkview at Lakeshore ($700K)</option>
+    <option value="alfred">Alfred Alicea . Parkview at Lakeshore ($700K)</option>
+    <option value="allan">Allan German . EGS International (Partner)</option>
+    <option value="justin_g">Justin Galuszka . Gravity Roofing (Villa Marquis contractor)</option>
+    <option value="taylor">Taylor Wilson . Hinterland Group (Prospect)</option>
+    <option value="greg">Greg Rand . Elementz Reconstruction (Prospect)</option>
+    <option value="mark">Mark Lorenz . Seacrest Southwest (Prospect)</option>
+  </select>
+  <div id="mp-content" style="display:none">
+    <div class="mg">
+      <div class="mc"><div class="ml">Deal value</div><div class="mv" id="mp-amount">-</div><div class="ms" id="mp-stage">-</div></div>
+      <div class="mc"><div class="ml">Days since contact</div><div class="mv" id="mp-days">-</div><div class="ms" id="mp-lastdate">-</div></div>
+      <div class="mc"><div class="ml">Next action</div><div class="mv" style="font-size:13px;margin-top:4px" id="mp-next">-</div><div class="ms" id="mp-nextdate">-</div></div>
+    </div>
+    <div class="co">
+      <div class="cot" id="mp-name">Contact</div>
+      <div class="cor" id="mp-title">-</div>
+      <div class="cor" id="mp-email">-</div>
+      <div class="cor" id="mp-phone">-</div>
+      <div class="cor" id="mp-company">-</div>
+    </div>
+    <div class="sl">Deal context</div>
+    <div class="co" style="border-color:var(--bd)">
+      <div class="cot" id="mp-dealname">-</div>
+      <div class="cor" id="mp-dealdetail">-</div>
+    </div>
+    <div class="sl">Key talking points</div>
+    <div class="lst" id="mp-talking"></div>
+    <div class="sl">Recent activity</div>
+    <div class="lst" id="mp-activity"></div>
+    <div class="sl">Open tasks</div>
+    <div class="lst" id="mp-tasks"></div>
+    <div class="sl">Doc checklist status</div>
+    <div id="mp-docs" style="font-size:12px;color:var(--sec)">-</div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<div class="foot">HubSpot Command Center. Snapshot Jul 15, 2026. 7 deals. $45,800,969. 157 contacts. Task check-offs and doc progress save locally in this browser.</div>
+</div>
+<script>
+/* NAV */
+document.querySelectorAll('.nt').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.pn').forEach(p=>p.classList.remove('ac'));
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('ac'));
+  document.getElementById('panel-'+btn.dataset.p).classList.add('ac');
+  btn.classList.add('ac');
+  if(btn.dataset.p==='pipeline')drawDonut();
+}));
+
+/* CONTACTS - all 122 */
+const avA=['background:var(--bbg);color:#0C447C','background:var(--gbg);color:var(--gtx)','background:#EEEDFE;color:#3C3489','background:var(--trbg);color:var(--terra)','background:var(--abg);color:var(--atx)','background:#EAF3DE;color:#3B6D11','background:#FBEAF0;color:#99355B','background:var(--bg3);color:#444441','background:var(--rbg);color:var(--rtx)'];
+const contacts=[
+{id:518868479696,n:"Tom White",t:"Commercial Roofing Sales Consultant",c:"USI Roofing",e:"tom@usiroofing.com"},
+{id:519169747660,n:"Yanieve Levi",t:"",c:"Coast to Coast General Contractors",e:"ylevi@coasttocoastgc.com"},
+{id:519169749725,n:"Paul",t:"CEO",c:"Overton Construction & Consulting",e:"paul@overton-construction.com"},
+{id:519352586986,n:"Ana Minor",t:"",c:"Complete General Contractors",e:"a.minor@teamcomplete.com"},
+{id:519341220590,n:"Kevin Cruz",t:"CEO",c:"Skyscraper Construction",e:"kcruz@skyscrapercm.com"},
+{id:519321112309,n:"Timothy Cassidy",t:"P.E.",c:"Kipcon Southeast LLC",e:"TPC@kipcon.com"},
+{id:519175772895,n:"Jeffrey Barnes",t:"",c:"Barnes Consulting Group",e:"jeff@barnes-consulting.com"},
+{id:519169759963,n:"Michael Conner",t:"P.E., CGC",c:"CMA Engineering",e:"Mike@CMAEngineering.net"},
+{id:519243645683,n:"Natalie Diaz",t:"P.E.",c:"DDA Engineers",e:"ndiaz@ddaengineers.com"},
+{id:519165806283,n:"Jose Lopez-Castro",t:"P.E.",c:"Level Engineering & Inspection Services",e:"jlc@levelengineering.com"},
+{id:519177090777,n:"Diego Serpa",t:"",c:"Advanced Structural Solutions",e:"diego@advancedsolutionsfl.com"},
+{id:519326202555,n:"Brian Gray",t:"PCAM",c:"Association Reserves",e:"Brian.Gray@ReserveStudy.com"},
+{id:519323034316,n:"Jenne McMillan",t:"",c:"Cayce & Associates, Inc.",e:"jmcmillan@caycecorp.com"},
+{id:519162137281,n:"Howard Epstein",t:"RS",c:"PM Plus Reserves, LLC",e:"howard@pmplusllc.com"},
+{id:519160366831,n:"Sarah Daley",t:"RS",c:"Reserve Specialists",e:"sarah@reservespecialists.com"},
+{id:519243669239,n:"Natasha Sweetser",t:"",c:"PSI Roofing",e:"nsweetser@psi-roofing.com"},
+{id:519165831871,n:"Paulo Souza",t:"",c:"PSI Roofing",e:"psouza@psi-roofing.com"},
+{id:519253625563,n:"Felix Martin",t:"",c:"Marcon Forensics",e:"monica@marconforensics.com"},
+{id:519168178916,n:"Terry Phelps",t:"",c:"SOCOTEC Consulting, Inc.",e:"terry.phelps@socotec.us"},
+{id:519245961968,n:"Christopher Smyth",t:"Qualifier",c:"Smyth Engineering Inc",e:"christopher.smyth@smythengineering.com"},
+{id:519169843961,n:"Craig Dudas",t:"",c:"Rimkus",e:"craig.dudas@rimkus.com"},
+{id:519366113992,n:"Sundeep Jay",t:"",c:"J.R. Frazer Inc.",e:"Pattie@jrfrazer.com"},
+{id:519341302471,n:"Stacey O\'Bryan",t:"",c:"PM Plus Reserves, LLC",e:"stacey@pmplusreserves.com"},
+{id:519154084577,n:"David Riddle",t:"",c:"The Falcon Group",e:"DRiddle@thefalcongroup.us"},
+{id:517903298292,n:"Alcuz Onate",t:"VP",c:"TRC Worldwide Engineering",e:"AOnate@trcww.com"},
+{id:518000175845,n:"Sean Donnelly",t:"Sales Manager",c:"Roof Ez",e:"sd@roofez.net"},
+{id:518001209054,n:"Josue Riverson",t:"President",c:"Solstice Security & Logistics",e:"info@solsticesecurityfl.com"},
+{id:518262459093,n:"Brennan Bosch",t:"Founder and Co-Owner",c:"Bosch Brothers Industries",e:"brennan@boschbi.com"},
+{id:515931811518,n:"Tessa Clark",t:"",c:"First Coast Association Management",e:"tessa@firstcoastam.com"},
+{id:515931713212,n:"Ali Baston",t:"",c:"Proline CRM"},
+{id:515854656190,n:"Rafael Tavares",t:"",c:"Rig Access"},
+{id:515513931490,n:"Ben Miller",t:"Agent, Commercial Lines",c:"Chapman Insurance Group",e:"ben@cigflorida.com"},
+{id:515482307306,n:"Rob Warholic",t:"Restoration Contractor",c:"BRJ Restoration",e:"rob@brjrestoration.com"},
+{id:515385395917,n:"Mark Lorenz",t:"Business Development Director, LCAM",c:"Seacrest Southwest",e:"MarkL@seacrestsw.com"},
+{id:512958168821,n:"Alfred Alicea",t:"Sr Portfolio Manager",c:"FirstService Residential",e:"alfred.alicea@fsresidential.com"},
+{id:512995827427,n:"Greg Rand",t:"President & Founder",c:"Elementz Reconstruction LLC",e:"greg@elementzmfs.com"},
+{id:512988606147,n:"Taylor Wilson",t:"Trenchless Technologies",c:"Hinterland Group",e:"twilson@hinterlandgroup.com"},
+{id:511085016779,n:"Patrick Miller",t:"President",c:"Invictus Security"},
+{id:511136237297,n:"Mark Hall",t:"CPP, Security Consultant & Founder",c:"MCH Consulting / Safe Communities LLC",e:"mhall@mchconsulting.net"},
+{id:511063410369,n:"David Shahrabani",t:"VP Regional HOA Account Executive",c:"SmartStreet / Banc of California",e:"david.shahrabani@bancofcal.com"},
+{id:509508651726,n:"Randy Earls",t:"Board Member",c:"Waterside at Coquina Key South",e:"randy.wscoa@gmail.com"},
+{id:509025440475,n:"Kerri Ann Costa",t:"Administration",c:"Leland Management",e:"kcosta@lelandmanagement.com"},
+{id:508961481443,n:"Justin Galuszka",t:"Field Rep",c:"Gravity Roofing LLC",e:"justin@gravityroof.com"},
+{id:507945166530,n:"Mary Mason",t:"LCAM",c:"Maxet Management Group",e:"mary.mason@maxet.net"},
+{id:507405440756,n:"Jessica Friday",t:"LCAM, CMCA, AMS, Onsite Manager",c:""},
+{id:507353683646,n:"Matt Ellison",t:"Owners Association Manager / Sales Rep",c:"Security Center USA",e:"matt.ellison@securitycenterusa.com"},
+{id:505463331539,n:"Henry Silva",t:"President",c:"Waterford Master Owners Association",e:"henrys500.hs@gmail.com"},
+{id:504959606483,n:"Angela Estilette",t:"",c:"Leland Management",e:"aestilette@lelandmanagement.com"},
+{id:504966753001,n:"Richard",t:"Property Manager",c:"First Coast Association Management",e:"richard@firstcoastam.com"},
+{id:504993528531,n:"Gloria Reed",t:"Licensed CAM, LCAM",c:"Ameri-Tech Community Management",e:"greed@ameritechmail.com"},
+{id:504991707876,n:"Justin Burrows",t:"General Manager & License Holder",c:"TWI Reconstruction",e:"justin@twiflorida.com"},
+{id:503245644476,n:"Alexander Ward",t:"Project Manager",c:"Ibis Contracting",e:"alex@ibiscontracting.com"},
+{id:501770754765,n:"Sharon Piotrowski",t:"Board Member",c:"",e:"sharon2girls@gmail.com"},
+{id:501575159509,n:"Patricia Staebler",t:"RS, SRA, Owner",c:"Staebler Appraisal and Consulting",e:"patricia@staeblerconsulting.com"},
+{id:501575159508,n:"David Sumner",t:"Board Member",c:"Highland Fairways POA",e:"ops2@hf-poa.org"},
+{id:501622371062,n:"Janice Provence",t:"CAM, CMCA",c:"",e:"japrovence@gmail.com"},
+{id:501800722137,n:"Tommy Sanderson",t:"Director",c:"LaPlaza Condo Association",e:"t.sanderson@att.net"},
+{id:501768653515,n:"David Adorno",t:"Hurricane Protection Vendor",c:"Storm Smart",e:"dadorno@stormsmart.com"},
+{id:501761933025,n:"Paula Newman",t:"Board Member",c:"Palm Beach Landings",e:"paula.newman406@gmail.com"},
+{id:501761933024,n:"William White",t:"CAM",c:"",e:"wwhitecpm@gmail.com"},
+{id:501772600016,n:"Travis Moore",t:"Principal",c:"Moore Relations, Inc.",e:"travis@moore-relations.com"},
+{id:501777870538,n:"Jeanne Mol",t:"Treasurer",c:"Kings Gate Association, Inc.",e:"treasurer@kingsgatepark.com"},
+{id:501793790655,n:"Belinda George",t:"CAM, CMCA, Manager",c:"Renaissance at Lake Ivanhoe",e:"belinda@renaissance1110.com"},
+{id:501777870537,n:"Michael Contorno",t:"LCAM, PI, Board President",c:"Windsor West Condo Association",e:"president@windsorwestfl.com"},
+{id:501769518783,n:"Mariann Bradley",t:"Board Member",c:"St Croix Condominium",e:"stcroixcondominium@gmail.com"},
+{id:501777870536,n:"Matthew Callahan",t:"Senior Project Manager",c:"National Water Main Cleaning Co",e:"mcallahan@nwmcc.com"},
+{id:501772600015,n:"Jeffry Robinson",t:"HOA Member",c:"",e:"jeffry.e.robinson@gmail.com"},
+{id:501759194850,n:"Ariana Photakis",t:"Water Conservation Specialist",c:"Tampa Bay Water Wise",e:"aphotakis@egia.org"},
+{id:501770741444,n:"Jordan Colon",t:"Assistant CAM",c:"The Grosvenor Condo Association",e:"jordanjcolon@gmail.com"},
+{id:501575148219,n:"Rob Russell",t:"EVP of Sales",c:"TEKWave Solutions",e:"rob@tekwavesolutions.com"},
+{id:501768441583,n:"Michelle Chace",t:"Physical Security Professional",c:"Kolins Security Group",e:"michelle.chace@kolinssecuritygroup.com"},
+{id:501793661626,n:"Logan Bozek",t:"Security Services",c:"Weiser Security Services Inc",e:"lbozek@weisersecurity.com"},
+{id:501622360773,n:"Marcy Kravit",t:"CMCA, AMS, PCAM, CFCAM",c:"SmartStreet / Banc of California",e:"marcy.kravit@bancofcal.com"},
+{id:501768441582,n:"William Volkert",t:"Financial Advisor",c:"Northwestern Mutual",e:"william.volkert@nm.com"},
+{id:501768413941,n:"Jaime Barnhart",t:"Strategic Marketing",c:"Community Financials",e:"jaime@communityfinancials.com"},
+{id:501758026442,n:"Carey MacKinnon",t:"LCAM, Onsite CAM",c:"Argus Management of Venice",e:"carey@argusvenice.com"},
+{id:501769474801,n:"Chuck Riesebeck",t:"Board Member",c:"",e:"npostuff@gmail.com"},
+{id:501769474800,n:"Zachary Park",t:"Owner, LCAM, CMCA",c:"Clearpath Association Management",e:"zach@clearpathmanagementco.com"},
+{id:501766769376,n:"Seth Emmons",t:"AMS",c:"Hunter's Creek Community Association",e:"semmons@hunterscreek.net"},
+{id:501759153883,n:"Martin Teperow",t:"President",c:"Benvenuto Condo Association",e:"mdt4800y@gmail.com"},
+{id:501772556004,n:"Brian Corbat",t:"Association Financial Management",c:"HOA Accounting Services",e:"bcorbat@jeafinancialgroup.com"},
+{id:501766102754,n:"Becky LaRue",t:"HOA/Condo Accounting",c:"SRQ Condo Accounting Inc.",e:"becky@srqcondoaccounting.com"},
+{id:501571806909,n:"Ethan Hall",t:"VP, Relationship Manager",c:"Axos Bank HOA",e:"ehall@axosbank.com"},
+{id:501443229409,n:"Thomas Engblom",t:"VP Regional Sales Officer",c:"First Citizens Bank",e:"thomasengblomsalesofficer@firstcitizens.com"},
+{id:501767611123,n:"Beth Rappaport",t:"VP of Business Development",c:"Campbell Property Management",e:"brappaport@campbellproperty.com"},
+{id:501443225296,n:"Thad Clark",t:"Financial Services",c:"Community Financials",e:"thad@communityfinancials.com"},
+{id:501622327030,n:"Trina Moser",t:"Area Vice President",c:"Doyle Security Services",e:"tmoser@doylesecurityservices.com"},
+{id:501575116495,n:"Stacy Davenport",t:"Board Member",c:"",e:"lhro@lakehighlander.com"},
+{id:501736889056,n:"Kimberlee Tolkien",t:"LCAM",c:"Holiday Condominium Inc.",e:"kimberlee@holidaycondominium.com"},
+{id:501768506046,n:"Reini Marsh",t:"Regional Community Advisor",c:"Community Financials",e:"reini@communityfinancials.com"},
+{id:501768612540,n:"Yvette Holder",t:"Board Member",c:"Lake Clarke Gardens Condo",e:"yholder@lakeclarkegardens.com"},
+{id:501768405738,n:"Frances Stifel",t:"LCAM, Association Manager",c:"Placido Bayou Community Association"},
+{id:501754114805,n:"Jackie Grant",t:"LCAM",c:"SCCA / Riverbend Condos"},
+{id:501768405737,n:"Richard Frisz",t:"Board Member",c:"Wolf Creek Townhome Owners Association",e:"richfwc@yahoo.com"},
+{id:501575109348,n:"Sean Kelly",t:"Treasurer",c:"Manor Grove Village IV",e:"mgv4.seankelly@gmail.com"},
+{id:501746688757,n:"Joseph Hannon",t:"PE, Principal",c:"Atlantic Coast Engineering LLC",e:"jedh@atlanticcoastengineeringllc.com"},
+{id:501760086753,n:"Isaac Santiago",t:"Director, Security",c:"Global Protection Agency, LLC",e:"info@globalprotectionagency.com"},
+{id:501768405720,n:"Matthew Kuisle",t:"PE, Reserve Specialist",c:"Reserve Advisors",e:"matt@reserveadvisors.com"},
+{id:501746688735,n:"Ingrid Gooden",t:"Board Member",c:"Pearl Condominium Association",e:"ingrid@igtaxsvc.com"},
+{id:501736882898,n:"Brad Baecht",t:"Search & Consulting Executive, LCAM",c:"KK&W",e:"brad@kkandw.com"},
+{id:501768405719,n:"Gary Wogenstahl",t:"Board Member",c:"",e:"gwogenstahl@gmail.com"},
+{id:501575109331,n:"Salvatore Pappalardo",t:"Treasurer",c:"Sarasota Village Gardens Condo",e:"sjpappalardo@gmail.com"},
+{id:501760086735,n:"Lois Boxer",t:"Board Member",c:"",e:"lois.boxer@gmail.com"},
+{id:501575109330,n:"Donald Griffin",t:"Real Estate Appraiser, MAI, SRA",c:"Don Griffin Appraisals, Inc.",e:"don@dongriffinappraisals.com"},
+{id:501754114781,n:"Corbett Godwin",t:"Nationally Licensed Public Adjuster",c:"Gavnat and Associates",e:"cgodwin@gavnat.com"},
+{id:501622321900,n:"Kristina Mazza",t:"Executive Director",c:"Avila Property Owners Association",e:"kristina@avilaproperty.org"},
+{id:501622297336,n:"Greg Klema",t:"Treasurer",c:"Vieux Carre Condominium Association"},
+{id:501768581846,n:"Joseph Margherita",t:"Owner",c:"Tampa Bay Mold Testing",e:"joe@tampabaymoldtesting.com"},
+{id:501754091203,n:"Shedna Lordeus-Sanchez",t:"Property Manager",c:"Allied Property Group, Inc.",e:"ssanchez@alliedpropertygroup.net"},
+{id:501755507435,n:"Jason Schoenholtz",t:"CEO & Co-founder, CAM",c:"Trident Management",e:"jason@tridentmiami.com"},
+{id:501767587517,n:"Pablo Maida",t:"CPA",c:"HOA Books, LLC",e:"solutions@hoabooks.com"},
+{id:501758000877,n:"Elaine Cole",t:"Board Member / Treasurer",c:"Homeowners of Palm Hill",e:"elainezcole@gmail.com"},
+{id:501766076098,n:"Kelli Burgess",t:"President & Partner",c:"Signature Property Management",e:"kelli@signaturepropertymgmt.com"},
+{id:501738870459,n:"Kevin Hitzeman",t:"HOA Board Member",c:"Bonita National Golf and Country Club HOA",e:"dqkevin@pobox.com"},
+{id:501757998826,n:"Delora Bubb",t:"Board Member",c:"Indigo Neighborhood Association",e:"bubbdelora@gmail.com"},
+{id:501443202788,n:"Gaston Correa",t:"LCAM, General Manager",c:"RealManage Elevated",e:"gaston.correa@grandmanors.com"},
+{id:501757998825,n:"Jeannette Graham",t:"LCAM",c:""},
+{id:501755505381,n:"Jill Palmer",t:"Board Secretary",c:"Waterford Estates Community Association",e:"wecapg.secr@gmail.com"},
+{id:501571781350,n:"Claudia Paisley",t:"Property Manager",c:"Pink Paisley Property Management",e:"claudia@pinkpaisleypm.com"},
+{id:501736853203,n:"John French",t:"Board Member",c:"Maple Leaf Estates Homeowners Corp",e:"bcp3245@msn.com"},
+{id:501622294233,n:"Jose Torres",t:"Treasurer",c:"Tropic Isles Co-op, Inc.",e:"treasurer@tropicisles.net"},
+{id:501736975062,n:"Aldo Gonzalez",t:"PE, Reserve Specialist, Board Member",c:"Community Reserves",e:"aldo@communityreserves.info"},
+{id:501734433471,n:"Scott Grissom",t:"CPA / Auditor",c:"Coastal Clarity Assurance",e:"sgrissom@coastalclaritygroup.com"},
+{id:501622294232,n:"George Paige",t:"Treasurer",c:"Americana Cove",e:"george.paige@americanacove.com"},
+{id:501736853182,n:"Ethan Loschiavo",t:"CAM, District Manager",c:"Guest Services, Inc.",e:"ethan.loschiavo@guestservices.com"},
+{id:501754087123,n:"Robert Thomson",t:"Vendor",c:"ARC Tracker, Inc.",e:"rthomson@arctracker.com"},
+{id:501736975057,n:"Luciana Pitanga",t:"Board/Association Member",c:"",e:"lucianapitwork@gmail.com"},
+{id:501575079631,n:"Jay Purut",t:"LCAM, CFCAM, CAM",c:"Panhandle Community Association Management",e:"jay.purut@pcam.fun"},
+{id:501734201052,n:"Jill Wait",t:"Board Member",c:"Seven Lakes Condo Association",e:"jillwait.sevenlakes@outlook.com"},
+{id:500981179076,n:"Allan German",t:"Director of Business Development",c:"EGS International",e:"allan@egsinternationalllc.com"},
+{id:500898383554,n:"Lidiadary Carpio",t:"",c:"First Coast Association Management",e:"lidiadary@firstcoastam.com"},
+{id:500569459420,n:"Tammy Smrek",t:"Board Member",c:"Villa Marquis Condominiums",e:"tammysmarie@gmail.com"},
+{id:500553463528,n:"Oana Stefan",t:"Client Solutions Specialist",c:"SB Pro Roofing Solar",e:"oana@sbproroofing.com"},
+{id:500546800322,n:"Melissa Rogers",t:"Roof Specialist",c:"C2C Restore",e:"melissa@c2crestore.com"},
+{id:500555207408,n:"Dillon Dion",t:"Sales Representative",c:"Trust Roofing",e:"dillon@trustroofing.com"},
+{id:500559773380,n:"Tyler Johnson",t:"Sales Representative",c:"FL Specialty Roofing",e:"tjohnson@flsroof.com"},
+{id:500553459435,n:"Carolina Baez",t:"Business Development Executive",c:"Advanced Roofing Inc",e:"carolinab@advancedroofing.com"},
+{id:500565693140,n:"Sarah Walker",t:"Executive Administrator",c:"Shamrock Roofing Co",e:"sarah@shamrockroofingco.com"},
+{id:500552981222,n:"Chuck Peterson",t:"Executive Director",c:"Sun Coast Roofing",e:"c.peterson@suncoastroofing.net"},
+{id:500552963805,n:"Jackie Swisher",t:"Director of Business Development",c:"EmpireWorks Reconstruction",e:"jswisher@empireworks.com"},
+{id:500536130271,n:"Jennifer Von Lueders",t:"Director of Business Development, CAM",c:"Vesta Property Services",e:"jvonlueders@vestapropertyservices.com"},
+{id:500204415688,n:"Jarrod Cruz",t:"General Manager",c:"Leland Management",e:"jacruz@lelandmanagement.com"},
+{id:500204188378,n:"Vladimir Kononenko",t:"",c:"Advanced Solutions FL",e:"vladimir@advancedsolutionsfl.com"},
+{id:498975307509,n:"Melissa Johnson",t:"",c:"Resource Property Mgmt",e:"mjohnson@resourcepropertymgmt.com"},
+{id:498974566091,n:"Jeanne Rowney",t:"",c:"Parwood Square Condo",e:"jeanneroney@gmail.com"},
+{id:498974873295,n:"Michael Heil",t:"President",c:"Pines at Eagle Ridge",e:"mettybike@gmail.com"},
+{id:497923969748,n:"Kurt Waters",t:"Account Executive",c:"TDS Pipe",e:"kurt@tdspipe.com"},
+{id:497924678371,n:"Annika Mantius",t:"VP of Business Development",c:"TWI Florida",e:"annika@twiflorida.com"},
+{id:497923965642,n:"Michael Demichele",t:"Sales Manager",c:"",e:"strongroof2@gmail.com"},
+{id:497189778131,n:"Isabella Martinez",t:"Account Executive",c:"Crown Roofing",e:"isabellam@crownroofing.com"},
+{id:497233425136,n:"Tim Hunt",t:"Owner",c:"CMM Roofing",e:"thunt@cmmroofing.com"},
+{id:497923258095,n:"Leigh Anna Graham",t:"Sales Manager",c:"Advanced Roofing",e:"leighannag@advancedroofing.com"},
+{id:497189767918,n:"Anthony Modico",t:"Owner",c:"Deckline Roofing",e:"anthonym@decklineroofing.com"},
+{id:497189035769,n:"Jon Vogel",t:"Roofing Advisor",c:"Deckline Roofing",e:"jonv@decklineroofing.com"},
+{id:498974537431,n:"Sam Falk",t:"",c:"Deckline Roofing",e:"samf@decklineroofing.com"},
+];
+function ini(name){return name.split(' ').map(w=>w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();}
+function cHTML(c,i){return '<a class="cr" href="https://app.hubspot.com/contacts/246442896/record/0-1/'+c.id+'" target="_blank"><div class="av" style="'+avA[i%avA.length]+'">'+ini(c.n)+'</div><div class="ci"><div class="cn">'+c.n+'</div><div class="cm">'+(c.t||'No title')+' · '+(c.c||'')+'</div></div><div class="cx">'+(c.e||'')+'</div></a>';}
+document.getElementById('all-c').innerHTML=contacts.map(cHTML).join('');
+function fc(){const q=document.getElementById('c-search').value.toLowerCase();const list=q?contacts.filter(c=>c.n.toLowerCase().includes(q)||(c.c||'').toLowerCase().includes(q)||(c.t||'').toLowerCase().includes(q)||(c.e||'').toLowerCase().includes(q)):contacts;document.getElementById('cnt-lbl').textContent=list.length+' contact'+(list.length!==1?'s':'');document.getElementById('all-c').innerHTML=list.length?list.map(cHTML).join(''):'<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--sec)">No contacts found.</div>';}
+
+/* TASKS */
+const TKEY='cc_tasks_v5';
+let tDone=JSON.parse(localStorage.getItem(TKEY)||'{}');
+const tasks=[
+  {id:'378932402886',ts:'2026-06-27',s:'W9 from Gravity Roofing. Villa Marquis',b:'Justin Galuszka · justin@gravityroof.com · 407-734-1566',y:'TODO',d:'Overdue. Was Jun 27',c:'ov'},
+  {id:'379169703672',ts:'2026-07-08',s:'Call Randy Earls. Waterside Coquina Key South',b:'Unit breakdown + HOA dues per sq ft from PM. randy.wscoa@gmail.com',y:'CALL',d:'Wed Jul 8',c:''},
+  {id:'379016883935',ts:'2026-09-01',s:'Follow up Kerri Ann Costa. Leland wait list',b:'kcosta@lelandmanagement.com. Lunch and learn wait list status.',y:'TODO',d:'Tue Sep 1',c:''},
+  {id:'381704015602',ts:'2026-07-22',s:'Follow up with Gloria Reed if no response',b:'Parwood Square application follow-up sent Jul 8. greed@ameritechmail.com',y:'TODO',d:'Wed Jul 22',c:''},
+  {id:'381700140760',ts:'2026-07-16',s:"Call Tessa Clark. Timmerman's Walk follow-up",b:'Tessa said application would be back by end of week. tessa@firstcoastam.com',y:'CALL',d:'Thu Jul 16',c:''},
+  {id:'381691156182',ts:'2026-07-15',s:'Send follow up email to Greg Rand',b:'Left voicemail Jul 8, no response yet. Greg@ElementzMFS.com',y:'TODO',d:'Wed Jul 15',c:''},
+  {id:'381742842591',ts:'2026-07-15',s:'Message Ali Baston',b:'Left voicemail Jul 8, no response yet. Proline CRM. 828-817-9367',y:'TODO',d:'Wed Jul 15',c:''},
+  {id:'381532866288',ts:'2026-08-07',s:'Follow up with Rob Warholic if no response',b:'Sent intro email Jul 7. BRJ Restoration. rob@brjrestoration.com',y:'TODO',d:'Fri Aug 7',c:''},
+  {id:'381528061688',ts:'2026-08-07',s:'Follow up with Gaston Correa if no response',b:'Sent intro email Jul 7. RealManage Elevated. gaston.correa@grandmanors.com',y:'TODO',d:'Fri Aug 7',c:''},
+  {id:'375277460162',ts:'2026-06-12',s:'Co-branded materials for SB Pro Roofing Solar',b:'Oana Stefan. Association capital improvement financing.',y:'TODO',d:'Overdue. Jun 12',c:'ov'},
+  {id:'383540192966',ts:'2026-08-15',s:'Follow up with Yanieve Levi if no response',b:'CAI intro email sent Jul 15. Coast to Coast General Contractors. ylevi@coasttocoastgc.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383541969609',ts:'2026-08-15',s:'Follow up with Paul if no response',b:'CAI intro email sent Jul 15. Overton Construction & Consulting. paul@overton-construction.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383356912354',ts:'2026-08-15',s:'Follow up with Ana Minor if no response',b:'CAI intro email sent Jul 15. Complete General Contractors. a.minor@teamcomplete.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383441988289',ts:'2026-08-15',s:'Follow up with Kevin Cruz if no response',b:'CAI intro email sent Jul 15. Skyscraper Construction. kcruz@skyscrapercm.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383448970954',ts:'2026-08-15',s:'Follow up with Timothy Cassidy if no response',b:'CAI intro email sent Jul 15. Kipcon Southeast LLC. TPC@kipcon.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383448970956',ts:'2026-08-15',s:'Follow up with Jeffrey Barnes if no response',b:'CAI intro email sent Jul 15. Barnes Consulting Group. jeff@barnes-consulting.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383349640951',ts:'2026-08-15',s:'Follow up with Michael Conner if no response',b:'CAI intro email sent Jul 15. CMA Engineering. Mike@CMAEngineering.net',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383541976823',ts:'2026-08-15',s:'Follow up with Natalie Diaz if no response',b:'CAI intro email sent Jul 15. DDA Engineers. ndiaz@ddaengineers.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383540200174',ts:'2026-08-15',s:'Follow up with Jose Lopez-Castro if no response',b:'CAI intro email sent Jul 15. Level Engineering & Inspection Services. jlc@levelengineering.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383541976825',ts:'2026-08-15',s:'Follow up with Diego Serpa if no response',b:'CAI intro email sent Jul 15. Advanced Structural Solutions. diego@advancedsolutionsfl.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383487778512',ts:'2026-08-15',s:'Follow up with Brian Gray if no response',b:'CAI intro email sent Jul 15. Association Reserves. Brian.Gray@ReserveStudy.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383436744416',ts:'2026-08-15',s:'Follow up with Jenne McMillan if no response',b:'CAI intro email sent Jul 15. Cayce & Associates, Inc.. jmcmillan@caycecorp.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383443871428',ts:'2026-08-15',s:'Follow up with Howard Epstein if no response',b:'CAI intro email sent Jul 15. PM Plus Reserves, LLC. howard@pmplusllc.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383484244714',ts:'2026-08-15',s:'Follow up with Sarah Daley if no response',b:'CAI intro email sent Jul 15. Reserve Specialists. sarah@reservespecialists.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383484245714',ts:'2026-08-15',s:'Follow up with Natasha Sweetser if no response',b:'CAI intro email sent Jul 15. PSI Roofing. nsweetser@psi-roofing.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383480688374',ts:'2026-08-15',s:'Follow up with Paulo Souza if no response',b:'CAI intro email sent Jul 15. PSI Roofing. psouza@psi-roofing.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383349672656',ts:'2026-08-15',s:'Follow up with Felix Martin if no response',b:'CAI intro email sent Jul 15. Marcon Forensics. monica@marconforensics.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383466525379',ts:'2026-08-15',s:'Follow up with Terry Phelps if no response',b:'CAI intro email sent Jul 15. SOCOTEC Consulting, Inc.. terry.phelps@socotec.us',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383542011585',ts:'2026-08-15',s:'Follow up with Christopher Smyth if no response',b:'CAI intro email sent Jul 15. Smyth Engineering Inc. christopher.smyth@smythengineering.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383542012619',ts:'2026-08-15',s:'Follow up with Craig Dudas if no response',b:'CAI intro email sent Jul 15. Rimkus. craig.dudas@rimkus.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383468329692',ts:'2026-08-15',s:'Follow up with Sundeep Jay if no response',b:'CAI intro email sent Jul 15. J.R. Frazer Inc.. Pattie@jrfrazer.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383520010973',ts:'2026-08-15',s:'Follow up with Stacey O\'Bryan if no response',b:'CAI intro email sent Jul 15. PM Plus Reserves, LLC. stacey@pmplusreserves.com',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383411946177',ts:'2026-08-15',s:'Follow up with David Riddle if no response',b:'CAI intro email sent Jul 15. The Falcon Group. DRiddle@thefalcongroup.us',y:'TODO',d:'Sat Aug 15',c:''},
+  {id:'383008996031',ts:'2026-07-20T12:00',s:'Meeting with Alcuz Onate. Il Forno Ristorante, Doral',b:'VP, TRC Worldwide Engineering. Lunch meeting at 12:00 PM. 9350 NW 25th Street, Doral.',y:'TODO',d:'Mon Jul 20, 12:00 PM',c:''},
+  {id:'383082315490',ts:'2026-07-14T15:00',s:'Meeting with Josue Riverson',b:'President, Solstice Security & Logistics. info@solsticesecurityfl.com',y:'TODO',d:'Today Jul 14, 3:00 PM',c:'to'},
+  {id:'383128766150',ts:'2026-07-20',s:'Follow up with Brennan Bosch if no response',b:'Founder and Co-Owner, Bosch Brothers Industries. Email sent Jul 13. brennan@boschbi.com',y:'TODO',d:'Mon Jul 20',c:''},
+];
+tasks.forEach(t=>{t.done=tDone[t.id]||false;});
+let cf='all';
+function renderTasks(){
+  const list=tasks.filter(t=>{
+    if(cf==='call')return t.y==='CALL'&&!t.done;
+    if(cf==='todo')return t.y==='TODO'&&!t.done;
+    if(cf==='done')return t.done;
+    return true;
+  }).slice().sort((a,b)=>{
+    const ta=a.ts?new Date(a.ts).getTime():Infinity;
+    const tb=b.ts?new Date(b.ts).getTime():Infinity;
+    return ta-tb;
+  });
+  const open=tasks.filter(t=>!t.done).length;
+  document.getElementById('tbadge').textContent=open;
+  document.getElementById('opencount').textContent=open;
+  if(!list.length){document.getElementById('task-list').innerHTML='<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--sec)">No tasks here.</div>';return;}
+  document.getElementById('task-list').innerHTML=list.map((t,i)=>{
+    const idx=tasks.indexOf(t);
+    const tp=t.y==='CALL'?'<span class="pl pc">Call</span>':'<span class="pl pt">To-do</span>';
+    return '<div class="row'+(t.done?' dn':'')+'"><div class="chk'+(t.done?' ck':'')+'" data-i="'+idx+'">'+(t.done?'&#10003;':'')+'</div><div class="rc"><div class="rt'+(t.done?' dn':'')+'">'+t.s+'</div><div class="rb">'+t.b+'</div><div class="rm">'+tp+'<span class="dt2 '+t.c+'">'+t.d+'</span></div></div></div>';
+  }).join('');
+  document.querySelectorAll('.chk').forEach(c=>c.addEventListener('click',()=>{
+    const i=+c.dataset.i;if(tasks[i].done)return;
+    tasks[i].done=true;tDone[tasks[i].id]=true;
+    localStorage.setItem(TKEY,JSON.stringify(tDone));renderTasks();
+    showToast('Marked locally. Tell Claude to close in HubSpot.');
+  }));
+}
+function ft(f,btn){cf=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('ac'));btn.classList.add('ac');renderTasks();}
+renderTasks();
+
+/* EMAIL */
+const tpls={
+  waterside:{to:'mjohnson@resourcepropertymgmt.com',subject:'Waterside 1. Urgent Follow Up on Signatures',body:'Hi Melissa,\n\nFollowing up urgently on Waterside 1. The rate deadline has now passed and we need the signed term sheet and loan documents as soon as possible.\n\nAll documents are in order on our end. Please let me know what is holding things up so we can resolve it quickly.\n\nBest,\nArt Gonzalez\nTucielo'},
+  villa:{to:'tammysmarie@gmail.com',subject:'Villa Marquis. Treasurer Update and Next Steps',body:'Hi Tammy,\n\nFollowing up on the Villa Marquis financing. Great news that the treasurer has been voted in. A couple of items still needed:\n\n1. W9 from Gravity Roofing (Justin Galuszka)\n2. The ID concern we discussed\n\nPlease let us know once those are in place so we can move forward.\n\nBest,\nArt Gonzalez\nTucielo'},
+  parwood:{to:'greed@ameritechmail.com',subject:'Parwood Square. Application Follow-Up',body:'Hi Gloria,\n\nFollowing up on the Parwood Square financing application and Sections A and B that I sent over on June 25. Just wanted to check in on the status and see if you have any questions.\n\nBest,\nArt Gonzalez\nTucielo'},
+  timmerman:{to:'richard@firstcoastam.com',subject:"Timmerman's Walk HOA. Financing Application",body:"Hi Richard,\n\nFollowing up on the financing application for Timmerman's Walk HOA. We are ready to move forward as soon as it is submitted. Total project is $500,969.\n\nPlease let me know if I can help get this moving.\n\nBest,\nArt Gonzalez\nTucielo"},
+  checklist:{to:'',subject:'Due Diligence Document Checklist. Association Financing',body:'Hi,\n\nHere are the documents needed for your association financing.\n\nPRE-APPROVAL (Signed Application + Sections A & B)\n- Signed financing application\n- YTD Aging/Delinquency Report\n- YTD Financial Statements\n- Approved Operating Budget\n- Reserve Study (SIRS)\n- Declaration of CC&Rs\n- Bylaws\n- Articles of Incorporation\n- Unit Owner Roster\n\nBest,\nArt Gonzalez\nTucielo'},
+  blank:{to:'',subject:'',body:''}
+};
+function loadTpl(k){const t=tpls[k];document.getElementById('e-to').value=t.to||'';document.getElementById('e-sub').value=t.subject;document.getElementById('e-body').value=t.body;document.getElementById('e-sel').value=t.to||'';document.getElementById('e-status').className='e-status';document.querySelectorAll('.pn').forEach(p=>p.classList.remove('ac'));document.querySelectorAll('.nt').forEach(t=>t.classList.remove('ac'));document.getElementById('panel-email').classList.add('ac');document.querySelectorAll('.nt')[4].classList.add('ac');}
+function utfs(){const v=document.getElementById('e-sel').value;if(v)document.getElementById('e-to').value=v;}
+function copyEmail(){const to=document.getElementById('e-to').value.trim();const sub=document.getElementById('e-sub').value.trim();const body=document.getElementById('e-body').value.trim();const txt='To: '+to+'\nSubject: '+sub+'\n\n'+body;navigator.clipboard.writeText(txt).then(()=>{const el=document.getElementById('e-status');el.textContent='Copied to clipboard.';el.className='e-status ok';});}
+function openMailto(){const to=document.getElementById('e-to').value.trim();const sub=encodeURIComponent(document.getElementById('e-sub').value.trim());const body=encodeURIComponent(document.getElementById('e-body').value.trim());window.open('mailto:'+to+'?subject='+sub+'&body='+body);}
+
+/* DOC CHECKLISTS */
+const DKEY='cc_docs_v5';
+const docSections=[
+  {id:'APP',label:'Signed application',phase:'pre',items:['Signed financing application by authorized board member']},
+  {id:'A',label:'A. Financial documentation',phase:'pre',items:['Most recent YTD Aging/Delinquency Report','Most recent YTD Financial Statements',"Current year's approved Operating Budget",'Structural Integrity Reserve Study (SIRS)','Engineering/inspection/3rd party reports']},
+  {id:'B',label:'B. Governance',phase:'pre',items:['Declaration of CC&Rs and all amendments','Bylaws','Articles of Incorporation','Unit Owner Roster (by lot/unit)']},
+  {id:'C',label:'C. Financials',phase:'under',items:['Prior 3 fiscal years Aging/Delinquency Report','Prior 3 fiscal years Balance Sheet & Income Statement','Most recent Bank Statement']},
+  {id:'D',label:'D. Operations',phase:'under',items:['Property Management Agreement','Board of Directors Contact List','Board Meeting Minutes (past year)','Current Collection Policy','NOLAs and demand letters outstanding','Copies of existing debt, mortgages, loans','Sample Assessment Letter']},
+  {id:'E',label:'E. Insurance',phase:'under',items:['Proof of Property & Casualty Insurance','Proof of General Liability Insurance','Proof of D&O Insurance / Crime Coverage / Fidelity Bond','Proof of Flood and/or Windstorm Insurance (if applicable)']},
+  {id:'F',label:'F. Project details',phase:'under',items:['Projects Budget','Signed Construction Contracts / quotes / bids','W9s for all contractors','Disbursement Schedule (lender to provide template)']},
+  {id:'G',label:'G. Prior to loan closing',phase:'under',items:['Meeting Minutes approving Loan, assessment increase, Contractors & scope',"Driver's Licenses for all Authorized Signers","Opinion of Borrower's Counsel (lender to provide template)"]}
+];
+const docDeals=[
+  {id:'dayt',name:'Daytona Beach Resort and Conference Center',amount:'$18,000,000',contact:'No contact yet',url:'https://app.hubspot.com/contacts/246442896/record/0-3/333783037679',allDone:false},
+  {id:'coquina',name:'Waterside at Coquina Key South',amount:'$25,000,000',contact:'Randy Earls',url:'https://app.hubspot.com/contacts/246442896/record/0-3/332827141855',allDone:false},
+  {id:'timm',name:"Timmerman's Walk HOA",amount:'$500,969',contact:'Richard / Lidiadary',url:'https://app.hubspot.com/contacts/246442896/record/0-3/329567607532',allDone:false},
+  {id:'parw',name:'Parwood Square Condo Association',amount:'$400,000',contact:'Jeanne Rowney / Gloria Reed',url:'https://app.hubspot.com/contacts/246442896/record/0-3/329491495629',allDone:false},
+  {id:'park',name:'Parkview at Lakeshore HOA',amount:'$700,000',contact:'Alexander Ward',url:'https://app.hubspot.com/contacts/246442896/record/0-3/330352493271',allDone:false},
+  {id:'vill',name:'Villa Marquis Condo Association',amount:'$500,000',contact:'Tammy Smrek',url:'https://app.hubspot.com/contacts/246442896/record/0-3/329489649379',allDone:true},
+  {id:'wats',name:'Waterside 1',amount:'$700,000',contact:'Melissa Johnson',url:'https://app.hubspot.com/contacts/246442896/record/0-3/329373154030',allDone:true},
+];
+let docState=JSON.parse(localStorage.getItem(DKEY)||'null');
+if(!docState){docState={};docDeals.forEach(d=>{docState[d.id]={};docSections.forEach(s=>{docState[d.id][s.id]=s.items.map(()=>d.allDone);});});}
+let openDocs={};docDeals.forEach(d=>openDocs[d.id]=!d.allDone);
+function docTotal(){return docSections.reduce((a,s)=>a+s.items.length,0);}
+function docDone(did){return docSections.reduce((a,s)=>a+docState[did][s.id].filter(Boolean).length,0);}
+function preOk(did){return['APP','A','B'].every(sid=>docState[did][sid].every(Boolean));}
+function renderDocs(){
+  const saved={};docDeals.forEach(d=>{const el=document.getElementById('db-'+d.id);if(el)saved[d.id]=el.classList.contains('open');});
+  document.getElementById('doc-container').innerHTML=docDeals.map(deal=>{
+    const tot=docTotal(),done=docDone(deal.id),pct=Math.round((done/tot)*100),pre=preOk(deal.id);
+    const isOpen=saved[deal.id]!==undefined?saved[deal.id]:openDocs[deal.id];
+    const sHtml=docSections.map(sec=>{
+      const pb=sec.phase==='pre'?'<span class="pb-pre">Pre-Approval</span>':'<span class="pb-under">Underwriting</span>';
+      const items=sec.items.map((item,idx)=>{const ck=docState[deal.id][sec.id][idx];return '<div class="doc-item'+(ck?' ck':'')+'" data-d="'+deal.id+'" data-s="'+sec.id+'" data-i="'+idx+'"><div class="doc-chk'+(ck?' ck':'')+'">'+(ck?'&#10003;':'')+'</div><div class="doc-txt'+(ck?' ck':'')+'">'+item+'</div></div>';}).join('');
+      return '<div class="doc-sec"><div class="doc-sec-hdr">'+sec.label+' '+pb+'</div>'+items+'</div>';
+    }).join('');
+    const sp=pre?'<span class="sp sp-r">&#10003; Pre-approval ready</span>':'<span class="sp sp-p">&#9200; Pre-approval pending</span>';
+    return '<div class="doc-card"><div class="doc-hdr" data-toggle="'+deal.id+'"><div class="doc-left"><div class="doc-name">'+deal.name+'</div><div class="doc-meta">'+deal.contact+' · '+done+'/'+tot+' · '+pct+'%</div></div><div class="doc-right"><div class="doc-amt">'+deal.amount+'</div>'+sp+'<span class="chev'+(isOpen?' open':'')+'">&#9660;</span></div></div><div class="doc-body'+(isOpen?' open':'')+'" id="db-'+deal.id+'"><div class="doc-prog-wrap"><div class="doc-prog-lbl"><span>Progress</span><span style="font-weight:600">'+pct+'%</span></div><div class="doc-prog-bar"><div class="doc-prog-fill" style="width:'+pct+'%"></div></div></div>'+sHtml+'<a class="xl" href="'+deal.url+'" target="_blank" style="margin-top:9px;display:inline-flex">View in HubSpot</a></div></div>';
+  }).join('');
+  document.querySelectorAll('[data-toggle]').forEach(h=>h.addEventListener('click',e=>{if(e.target.closest('a'))return;const id=h.dataset.toggle;openDocs[id]=!openDocs[id];renderDocs();}));
+  document.querySelectorAll('.doc-item').forEach(it=>it.addEventListener('click',()=>{const d=it.dataset.d,s=it.dataset.s,i=+it.dataset.i;docState[d][s][i]=!docState[d][s][i];localStorage.setItem(DKEY,JSON.stringify(docState));renderDocs();}));
+}
+renderDocs();
+
+/* SCANNER */
+function handleScan(input){if(!input.files[0])return;alert('Photo uploaded. Copy the contact details visible in the image and fill in the form below, then use the Copy button to share with Claude.');}
+function copyScannerContact(){const first=document.getElementById('bc-first').value.trim();const last=document.getElementById('bc-last').value.trim();const email=document.getElementById('bc-email').value.trim();const phone=document.getElementById('bc-phone').value.trim();const company=document.getElementById('bc-company').value.trim();const title=document.getElementById('bc-title').value.trim();if(!first&&!last&&!email){alert('Please enter at least a name or email.');return;}const txt='Add this contact to HubSpot: '+first+' '+last+', email: '+email+', phone: '+phone+', company: '+company+', title: '+title;navigator.clipboard.writeText(txt).then(()=>showToast('Copied. Paste to Claude to add to HubSpot.'));}
+
+/* DONUT */
+function drawDonut(){const canvas=document.getElementById('donut');if(!canvas)return;const ctx=canvas.getContext('2d');const cx=80,cy=80,r=70,inner=42;const slices=[{pct:0.546,color:'#E24B4A'},{pct:0.393,color:'#7C6FD8'},{pct:0.015,color:'#378ADD'},{pct:0.015,color:'#EF9F27'},{pct:0.011,color:'#888780'},{pct:0.011,color:'#5DB4D4'},{pct:0.009,color:'#3B6D11'}];let angle=-Math.PI/2;slices.forEach(s=>{const end=angle+s.pct*2*Math.PI;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,end);ctx.closePath();ctx.fillStyle=s.color;ctx.fill();angle=end;});ctx.beginPath();ctx.arc(cx,cy,inner,0,2*Math.PI);const dark=window.matchMedia('(prefers-color-scheme: dark)').matches;ctx.fillStyle=dark?'#1a1915':'#FBFAF7';ctx.fill();ctx.fillStyle=dark?'#f0ede8':'#1a1915';ctx.font='bold 14px -apple-system,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('$45.8M',cx,cy-7);ctx.font='10px -apple-system,sans-serif';ctx.fillStyle=dark?'#6b6963':'#9b9890';ctx.fillText('pipeline',cx,cy+8);}
+
+
+/* ACTIVITY LOG */
+const activities=[
+  {date:"Jul 15",type:"call",who:"Tom White",detail:"Connected on LinkedIn. Commercial Roofing Sales Consultant at USI Roofing.",deal:""},
+  {date:"Jul 15",type:"email",who:"CAI Network Outreach (23 contacts)",detail:"Sent introductory emails mentioning fellow CAI membership to a batch of engineers, reserve specialists, and contractors: Yanieve Levi (Coast to Coast GC), Paul (Overton Construction), Ana Minor (Complete GC), Kevin Cruz (Skyscraper Construction), Timothy Cassidy (Kipcon Southeast), Jeffrey Barnes (Barnes Consulting), Michael Conner (CMA Engineering), Natalie Diaz (DDA Engineers), Jose Lopez-Castro (Level Engineering), Diego Serpa (Advanced Structural Solutions), Brian Gray (Association Reserves), Jenne McMillan (Cayce and Associates), Howard Epstein and Stacey OBryan (PM Plus Reserves), Sarah Daley (Reserve Specialists), Natasha Sweetser and Paulo Souza (PSI Roofing), Felix Martin (Marcon Forensics), Terry Phelps (SOCOTEC Consulting), Christopher Smyth (Smyth Engineering), Craig Dudas (Rimkus), Sundeep Jay (JR Frazer), and David Riddle (The Falcon Group). Follow-up reminders set for all on Aug 15.",deal:""},
+  {date:"Jul 13",type:"call",who:"Tammy Smrek",detail:"Villa Marquis. Items sent to the lawyer. Lawyer says the notice period will take 14 days. Asked about needing a Certificate of Good Standing, confirmed it is not needed.",deal:"Villa Marquis"},
+  {date:"Jul 14",type:"email",who:"Brennan Bosch",detail:"Met via LinkedIn. He said to connect via email. Email was sent Jul 13. Follow up Jul 20 if no response.",deal:""},
+  {date:"Jul 14",type:"call",who:"Josue Riverson",detail:"Connected via LinkedIn. President of Solstice Security & Logistics. Meeting scheduled today at 3 PM.",deal:""},
+  {date:"Jul 14",type:"email",who:"Alcuz Onate",detail:"VP at TRC Worldwide Engineering. Lunch meeting scheduled Jul 20 at 12 PM, Il Forno Ristorante, Doral.",deal:""},
+  {date:"Jul 13",type:"call",who:"Sean Donnelly",detail:"Roof Ez. Discussed a roof replacement opportunity in Boynton Beach, estimated at $1.8 million. Association name not yet known.",deal:""},
+  {date:"Jul 8",type:"call",who:"Rafael Tavares",detail:"Called, no answer. Sent a LinkedIn message. Met him on LinkedIn. Rig Access.",deal:""},
+  {date:"Jul 8",type:"call",who:"Ali Baston",detail:"Connected on LinkedIn. Left a voicemail. Proline CRM.",deal:""},
+  {date:"Jul 8",type:"call",who:"Greg Rand",detail:"Left a voicemail. Elementz Reconstruction.",deal:""},
+  {date:"Jul 8",type:"call",who:"Tessa Clark",detail:"Added as contact on Timmerman's Walk. She asked about contractor requirements, advised it is the board's decision. Application expected back by end of week.",deal:"Timmerman's Walk"},
+  {date:"Jul 8",type:"email",who:"Gloria Reed",detail:"Closed prior follow-up task. New follow-up set for Jul 22 if no response.",deal:"Parwood Square"},
+  {date:"Jul 8",type:"call",who:"Richard",detail:"Follow-up task closed on Timmerman's Walk.",deal:"Timmerman's Walk"},
+  {date:"Jul 8",type:"call",who:"Ben Miller",detail:"Great call. Very active in meetings, lunch and learns, and sponsoring with other members. Shared sunshinelist.com and the CAM/BOMA group as resources. Sent him a list of properties from Pinellas to Naples plus Seacrest's property managers, along with the Tucielo overview.",deal:""},
+  {date:"Jul 8",type:"call",who:"Mark Lorenz",detail:"Followed up. Still no response.",deal:""},
+  {date:"Jul 8",type:"call",who:"Allan German",detail:"Spoke about the 700 buildings Art is working on. Allan is going to check with his engineer groups.",deal:""},
+  {date:"Jul 8",type:"email",who:"Aldo Gonzalez",detail:"Sent introductory email. PE, Reserve Specialist at Community Reserves.",deal:""},
+  {date:"Jul 7",type:"email",who:"Mary Mason",detail:"Sent introductory email. LCAM at Maxet Management Group.",deal:""},
+  {date:"Jul 7",type:"email",who:"Gaston Correa",detail:"Sent introductory email. Follow up Aug 7 if no response.",deal:""},
+  {date:"Jul 7",type:"email",who:"Rob Warholic",detail:"Sent introductory email. He does restoration work at BRJ Restoration. Follow up Aug 7 if no response.",deal:""},
+  {date:"Jul 7",type:"call",who:"Ben Miller",detail:"Met at Chapman Insurance Group. Agent, Commercial Lines. Call scheduled for tomorrow at 11 AM.",deal:""},
+  {date:"Jul 7",type:"call",who:"Mark Lorenz",detail:"Met at CAI breakfast in Bonita Springs. Business Development Director at Seacrest Southwest. Said 50 percent of their associations are underfunded. Would find a board member list useful.",deal:""},
+  {date:"Jul 7",type:"email",who:"Mark Lorenz",detail:"Sent follow up email with the Tucielo overview page.",deal:""},
+  {date:"Jul 7",type:"call",who:"Tammy Smrek",detail:"Spoke on what is still needed. Advised the association will be receiving the loan documents.",deal:"Villa Marquis"},
+  {date:"Jul 7",type:"email",who:"Alfred Alicea",detail:"Alfred reached out and sent the Unit Owner Roster. Final item needed for underwriting. Pre-approval documentation now complete.",deal:"Parkview at Lakeshore"},
+  {date:"Jul 2",type:"email",who:"Angela Estilette",detail:"Email exchange. Angela confirmed Art on Leland lunch and learn wait list.",deal:""},
+  {date:"Jul 2",type:"email",who:"Taylor Wilson",detail:"Sent financing calculator screenshot to Taylor. Gauging interest for properties that may need financing.",deal:""},
+  {date:"Jun 26",type:"email",who:"Randy Earls",detail:"Sent follow-up email with financing breakdown on per square foot / per unit basis for Waterside South.",deal:"Waterside Coquina Key South"},
+  {date:"Jun 26",type:"call",who:"Randy Earls",detail:"Spoke with Randy. Association approved $13.2M assessment over 3 years. Total need is $25M. HOA dues per sq ft. Randy getting unit breakdown from PM.",deal:"Waterside Coquina Key South"},
+  {date:"Jun 25",type:"call",who:"Justin Galuszka",detail:"Spoke with Justin (Gravity Roofing). Updated him on docs needed for Villa Marquis closing. Requested W9.",deal:"Villa Marquis"},
+  {date:"Jun 25",type:"email",who:"Gloria Reed",detail:"Sent application + Sections A and B for Parwood Square. Advised only those sections needed for pre-approval.",deal:"Parwood Square"},
+  {date:"Jun 25",type:"email",who:"Gloria Reed",detail:"Initial outreach to Gloria Reed at Ameri-Tech regarding Parwood Square. Direct contact established.",deal:"Parwood Square"},
+  {date:"Jun 24",type:"email",who:"Kerri Ann Costa",detail:"Kerri Ann responded. Confirmed Art on wait list for Leland Management Tampa lunch and learn.",deal:""},
+  {date:"Jun 24",type:"email",who:"Kerri Ann Costa",detail:"Sent outreach to Kerri Ann Costa at Leland Management Tampa about scheduling a lunch and learn.",deal:""},
+  {date:"Jun 23",type:"call",who:"Allan German",detail:"Inbound call from Allan (EGS International). August event opportunity. Sending exact date. Finish branded calculator.",deal:""},
+  {date:"Jun 23",type:"call",who:"Anthony Modico",detail:"Spoke with Anthony (Deckline Roofing). Pines at Eagle Ridge does not qualify ($250K min). He has a few proposals in progress.",deal:""},
+  {date:"Jun 22",type:"call",who:"Tammy Smrek",detail:"Spoke with Tammy. Treasurer voted in. Tammy had concerns about why driver's licenses are needed for closing.",deal:"Villa Marquis"},
+  {date:"Jun 22",type:"email",who:"Richard",detail:"Sent follow-up email to Richard at First Coast AM. Timmerman's Walk application still not submitted.",deal:"Timmerman's Walk"},
+  {date:"Jun 22",type:"call",who:"Anthony Modico",detail:"Left voicemail for Anthony. Pines at Eagle Ridge update and financing presentation feedback request.",deal:""},
+  {date:"Jun 18",type:"call",who:"Allan German",detail:"Spoke with Allan (EGS). Sending company logo for branded calculator. Follow up after July 4th.",deal:""},
+  {date:"Jun 18",type:"email",who:"Jarrod Cruz",detail:"Thanked Jarrod Cruz (GM, Leland Mgmt) for connecting Art with Tampa branch for lunch and learn.",deal:""},
+  {date:"Jun 18",type:"call",who:"Michael Heil",detail:"Pines at Eagle Ridge does not meet $250K minimum. Deal closed, removed from pipeline.",deal:"Pines at Eagle Ridge"},
+  {date:"Jun 7",type:"email",who:"Greg Rand",detail:"Connected with Greg Rand on LinkedIn. President and Founder of Elementz Reconstruction LLC.",deal:""},
+  {date:"May 28",type:"call",who:"Taylor Wilson",detail:"Spoke with Taylor Wilson (Hinterland Group). Connected via LinkedIn. He has a few properties that might need financing.",deal:""},
+];
+let af='all';
+function renderActivities(){
+  const list=activities.filter(a=>{
+    if(af==='call')return a.type==='call';
+    if(af==='email')return a.type==='email';
+    return true;
+  });
+  document.getElementById('activity-list').innerHTML=list.map(a=>{
+    const tp=a.type==='call'?'<span class="pl pc">Call</span>':'<span class="pl pg">Email</span>';
+    const dl=a.deal?'<span class="pl pa">'+a.deal+'</span>':'';
+    return '<div class="row"><div class="rc"><div class="rt">'+a.who+'</div><div class="rb">'+a.detail+'</div><div class="rm">'+tp+dl+'<span class="dt2">'+a.date+'</span></div></div></div>';
+  }).join('');
+}
+function fa(f,btn){af=f;document.querySelectorAll('#panel-activity .fb').forEach(b=>b.classList.remove('ac'));btn.classList.add('ac');renderActivities();}
+renderActivities();
+
+/* MEETING PREP */
+const meetData={
+  randy:{name:"Randy Earls",title:"Board Member",email:"randy.wscoa@gmail.com",phone:"727-821-1240 (office)",company:"Waterside at Coquina Key South Condo Association Inc",amount:"$25,000,000",stage:"Pre-App",days:"6",lastdate:"Jun 26 call + email",next:"Call to follow up on unit breakdown",nextdate:"Wed Jul 8",dealname:"Waterside at Coquina Key South",dealdetail:"624 units. 4850 Cobia Drive SE, Saint Petersburg, FL 33705. Seawall, foundation, road work. $13.2M assessment approved over 3 years but needs $25M total. HOA dues are per square foot, not per unit. 9 months in development.",talking:["Ask if PM provided the unit breakdown and square footage data yet","Review how per sq ft dues translate to loan assessment amounts per unit","Discuss timeline for getting the application submitted","Mention that pre-approval only requires signed app + Sections A and B"],activity:["Jun 26: Called Randy. $13.2M assessment approved. $25M total needed. Per sq ft dues. Getting unit breakdown from PM.","Jun 26: Sent email with financing breakdown on per sq ft basis."],tasks:["Call Randy . Waterside Coquina Key South (Jul 8)"],docs:"Nothing submitted yet. Pre-approval pending."},
+  melissa:{name:"Melissa Johnson",title:"",email:"mjohnson@resourcepropertymgmt.com",phone:"",company:"Resource Property Mgmt",amount:"$700,000",stage:"Doc Prep and Closing",days:"14+",lastdate:"Mid-June",next:"Get signatures on term sheet and loan docs",nextdate:"ASAP",dealname:"Waterside 1",dealdetail:"Siding project. Approved. All docs complete. Rate deadline passed Jun 17. Signatures still needed. Client lawyer has caused delays despite 3 prior bank denials.",talking:["Rate deadline has passed. What is the hold-up on signatures?","All documents are complete on our end. What does the lawyer need?","Emphasize urgency. Every day past the rate deadline is risk.","Ask if there is a board meeting scheduled where this can be resolved"],activity:["No recent activity logged. Last contact was mid-June."],tasks:["No open tasks. Need to create a follow-up."],docs:"100% complete. All sections A through G submitted."},
+  tammy:{name:"Tammy Smrek",title:"Board Member",email:"tammysmarie@gmail.com",phone:"",company:"Villa Marquis Condominiums",amount:"$500,000",stage:"Doc Prep and Closing",days:"10",lastdate:"Jun 22 call",next:"Track the 14-day notice period, follow up on W9 from Gravity Roofing",nextdate:"Ongoing",dealname:"Villa Marquis Condo Association",dealdetail:"Roof project. Approved. Treasurer has been voted in. Contractor is Gravity Roofing (Justin Galuszka, 407-734-1566). Items sent to the lawyer, 14-day notice period underway as of Jul 13. Certificate of Good Standing confirmed not needed. W9 from Gravity Roofing still outstanding.",talking:["Check on progress of the 14-day notice period","Ask if there are any questions from the lawyer","Ask if Justin Galuszka has sent the W9 yet","Review remaining steps before funding"],activity:["Jul 13: Called Tammy. Items sent to lawyer. 14-day notice period. Certificate of Good Standing not needed.","Jul 7: Called Tammy. Reviewed what is needed. Advised loan documents are coming.","Jun 25: Called Justin Galuszka (Gravity Roofing). Updated on docs needed. Requested W9.","Jun 22: Called Tammy. Treasurer voted in. ID concern raised."],tasks:["W9 from Gravity Roofing (overdue, was Jun 27)"],docs:"100% complete. All sections A through G submitted."},
+  gloria:{name:"Gloria Reed",title:"Licensed CAM, LCAM",email:"greed@ameritechmail.com",phone:"727-726-8000 Ext 504",company:"Ameri-Tech Community Management",amount:"$400,000",stage:"Pre-App",days:"7",lastdate:"Jun 25 email",next:"Follow up on application review",nextdate:"Today Jul 2",dealname:"Parwood Square Condo Association",dealdetail:"Roof project. Jeanne Rowney is President. Gloria Reed is the PM at Ameri-Tech. Application + Sections A and B sent Jun 25.",talking:["Has she had a chance to review the application?","Does the board have questions about the financing terms?","Remind her only signed app + Sections A and B are needed for pre-approval","Ask about timeline for board discussion or vote"],activity:["Jun 25: Sent application + Sections A and B to Gloria.","Jun 25: Initial outreach to Gloria. Direct contact established."],tasks:["Follow up with Gloria Reed . Parwood Square (today Jul 2)"],docs:"Nothing submitted yet. Application sent, awaiting return."},
+  richard:{name:"Richard",title:"Property Manager",email:"richard@firstcoastam.com",phone:"",company:"First Coast Association Management",amount:"$500,969",stage:"Pre-App",days:"10",lastdate:"Jun 22 email",next:"Call. Application still not submitted.",nextdate:"Overdue",dealname:"Timmerman's Walk HOA",dealdetail:"Roof $305,280 + Paint $195,689 = $500,969 total. HOA confirmed intent to finance. Application not yet submitted. Contact: Lidiadary Carpio also at First Coast AM.",talking:["Application was expected weeks ago. What is the hold-up?","Does the board need to vote on the financing?","Offer to walk through the application on the phone","Remind him only signed app + Sections A and B needed for pre-approval"],activity:["Jun 22: Sent follow-up email to Richard. Application still not submitted."],tasks:["Follow up with Richard (overdue, was Jun 25)"],docs:"Nothing submitted yet. Pre-approval pending."},
+  alex:{name:"Alexander Ward",title:"Project Manager",email:"alex@ibiscontracting.com",phone:"407-966-4422",company:"Ibis Contracting",amount:"$700,000",stage:"Pre-App",days:"-",lastdate:"-",next:"Get updated contract",nextdate:"When available",dealname:"Parkview at Lakeshore HOA",dealdetail:"66 units. Jedi Management. Roof project. Updated to $700K. Awaiting contract from Alex. Low urgency.",talking:["Any update on the contract?","Has the board discussed financing yet?","66 units. What is the per-unit assessment looking like at $700K?"],activity:["No recent activity logged."],tasks:["No open tasks."],docs:"Nothing submitted yet. Pre-approval pending."},
+  alfred:{name:"Alfred Alicea",title:"Sr Portfolio Manager",email:"alfred.alicea@fsresidential.com",phone:"904-860-8444",company:"FirstService Residential",amount:"$700,000",stage:"Pre-App",days:"0",lastdate:"Jul 2 (added)",next:"Await updated contract from Alex, follow up on board timeline",nextdate:"As needed",dealname:"Parkview at Lakeshore HOA",dealdetail:"66 units. Jedi Management. Alfred manages this account at FirstService Residential alongside Alexander Ward at Ibis Contracting. Alfred sent the Unit Owner Roster Jul 7, completing pre-approval documentation.",talking:["Thank him for sending the roster","Ask about timeline for board review of financing","Clarify his role vs Alexander Ward on this account","Ask if there is anything else needed from FirstService Residential"],activity:["Jul 7: Alfred sent the Unit Owner Roster. Pre-approval documentation now complete.","Jul 2: Added to CRM. Associated with Parkview at Lakeshore."],tasks:["No open tasks for Alfred."],docs:"Pre-approval documentation complete. Awaiting updated contract from Alex."},
+  mark:{name:"Mark Lorenz",title:"Business Development Director, LCAM",email:"MarkL@seacrestsw.com",phone:"239-261-3440 Ext. 146",company:"Seacrest Southwest",amount:"Prospect",stage:"Prospect",days:"0",lastdate:"Jul 7",next:"Follow up if no response",nextdate:"Fri Aug 7",dealname:"No active deal",dealdetail:"Met at the CAI breakfast in Bonita Springs. Sent follow up email with the Tucielo overview page. He mentioned 50 percent of Seacrest Southwest associations are underfunded and would find a board member list useful.",talking:["Ask if he had a chance to review the overview page","Discuss the underfunded associations he mentioned, see if any are ready for financing","Ask what a board member list would help him do","Explore how Tucielo could support Seacrest Southwest's client base"],activity:["Jul 7: Met at CAI breakfast in Bonita Springs.","Jul 7: Sent follow up email with overview page."],tasks:["Follow up with Mark Lorenz if no response (Fri Aug 7)"],docs:"N/A. No active deal yet."},
+  allan:{name:"Allan German",title:"Director of Business Development",email:"Allan@egsinternationalllc.com",phone:"954-964-1441",company:"EGS International",amount:"Partnership",stage:"Partner",days:"9",lastdate:"Jun 23 call",next:"Call after July 4th. Calculator + August event.",nextdate:"Tue Jul 7",dealname:"EGS International Partnership",dealdetail:"Engineered Glass Systems / windows vendor. Joint event opportunity in August. Allan sent logo for branded calculator. Partnership for referring associations needing capital improvement financing.",talking:["Branded calculator is done. Walk him through it.","Confirm the August event date","Discuss what the joint presentation would cover","Ask about any current associations he is working with that might need financing"],activity:["Jun 23: Inbound call from Allan. August event opportunity. Sending exact date.","Jun 18: Spoke with Allan. Sending logo for branded calculator."],tasks:["Call Allan German (Tue Jul 7)"],docs:"N/A. Partnership, not a deal."},
+  justin_g:{name:"Justin Galuszka",title:"Field Rep",email:"justin@gravityroof.com",phone:"407-734-1566",company:"Gravity Roofing LLC",amount:"Contractor",stage:"Contractor",days:"7",lastdate:"Jun 25 call",next:"W9 still needed",nextdate:"Overdue",dealname:"Villa Marquis Condo Association (contractor)",dealdetail:"Gravity Roofing is the contractor for the Villa Marquis roof project ($500K). Justin is the field rep. W9 was requested Jun 25 and is overdue.",talking:["W9 was requested on Jun 25. Has it been sent?","Confirm mailing address for Gravity Roofing","Any updates on project timeline or scope changes?"],activity:["Jun 25: Called Justin. Updated on docs needed. Requested W9."],tasks:["W9 from Gravity Roofing (overdue, was Jun 27)"],docs:"W9 needed from Gravity Roofing."},
+  taylor:{name:"Taylor Wilson",title:"Trenchless Technologies",email:"twilson@hinterlandgroup.com",phone:"561-685-8457",company:"Hinterland Group",amount:"Prospect",stage:"Prospect",days:"0",lastdate:"Jul 2",next:"Wait for response on calculator",nextdate:"Follow up in a week",dealname:"No active deal",dealdetail:"Connected via LinkedIn. Taylor mentioned he has a few properties that might need financing. Sent him a screenshot of the calculator on Jul 2 to gauge interest.",talking:["Did the calculator make sense for his properties?","What types of associations does he work with?","What is the typical project size?","Would a lunch and learn or presentation be helpful?"],activity:["Jul 2: Sent calculator screenshot.","May 28: Initial phone call. Connected via LinkedIn. Has properties that might need financing."],tasks:["No open tasks. Consider setting a follow-up."],docs:"N/A. No active deal yet."},
+  greg:{name:"Greg Rand",title:"President and Founder",email:"Greg@ElementzMFS.com",phone:"678-382-9944",company:"Elementz Reconstruction LLC",amount:"Prospect",stage:"Prospect",days:"25",lastdate:"Jun 7",next:"Reach out to discuss how financing can help his projects",nextdate:"Overdue for outreach",dealname:"No active deal",dealdetail:"Also Chairman of New HorizonZ Foundation Inc. Connected via LinkedIn Jun 7. Elementz Reconstruction does reconstruction work that could generate financing referrals.",talking:["Introduce Tucielo's association financing program","How does Elementz typically handle capital improvement funding?","Does he work with HOAs or condo associations?","Would a co-branded calculator or presentation be useful?"],activity:["Jun 7: Connected on LinkedIn."],tasks:["No open tasks. Should set a follow-up."],docs:"N/A. No active deal yet."},
+};
+function loadMeetPrep(){
+  const sel=document.getElementById('mp-select').value;
+  const box=document.getElementById('mp-content');
+  if(!sel){box.style.display='none';return;}
+  box.style.display='block';
+  const d=meetData[sel];
+  document.getElementById('mp-amount').textContent=d.amount;
+  document.getElementById('mp-stage').textContent=d.stage;
+  document.getElementById('mp-days').textContent=d.days;
+  document.getElementById('mp-lastdate').textContent=d.lastdate;
+  document.getElementById('mp-next').textContent=d.next;
+  document.getElementById('mp-nextdate').textContent=d.nextdate;
+  document.getElementById('mp-name').textContent=d.name;
+  document.getElementById('mp-title').textContent=d.title||'No title';
+  document.getElementById('mp-email').textContent=d.email||'No email';
+  document.getElementById('mp-phone').textContent=d.phone||'No phone';
+  document.getElementById('mp-company').textContent=d.company;
+  document.getElementById('mp-dealname').textContent=d.dealname;
+  document.getElementById('mp-dealdetail').textContent=d.dealdetail;
+  document.getElementById('mp-talking').innerHTML=d.talking.map(t=>'<div class="row"><div class="rc"><div class="rb">'+t+'</div></div></div>').join('');
+  document.getElementById('mp-activity').innerHTML=d.activity.map(a=>'<div class="row"><div class="rc"><div class="rb">'+a+'</div></div></div>').join('');
+  document.getElementById('mp-tasks').innerHTML=d.tasks.map(t=>'<div class="row"><div class="rc"><div class="rb">'+t+'</div></div></div>').join('');
+  document.getElementById('mp-docs').textContent=d.docs;
+}
+
+function showToast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('on');setTimeout(()=>el.classList.remove('on'),2500);}
+</script>
+</body>
+</html>

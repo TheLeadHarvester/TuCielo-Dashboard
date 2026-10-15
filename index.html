@@ -181,7 +181,7 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
 <div class="hdr">
   <div>
     <div class="ht"><span class="ld"></span> HubSpot Command Center</div>
-    <div class="sub">Art Gonzalez . Tucielo . Oct 12, 2026 . 13 deals . $66.60M pipeline . 366 contacts</div>
+    <div class="sub">Art Gonzalez . Tucielo . Oct 15, 2026 . 13 deals . $66.60M pipeline . 381 contacts</div>
   </div>
   <a class="hlink" href="https://app.hubspot.com/contacts/246442896/" target="_blank">Open HubSpot</a>
 </div>
@@ -207,7 +207,7 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
   <div class="mg">
     <div class="mc"><div class="ml">Pipeline</div><div class="mv">$66.60M</div><div class="ms">13 active deals</div></div>
     <div class="mc"><div class="ml">Open tasks</div><div class="mv" id="opencount">98</div><div class="ms">Includes overdue</div></div>
-    <div class="mc"><div class="ml">Contacts</div><div class="mv">366</div><div class="ms">In CRM</div></div>
+    <div class="mc"><div class="ml">Contacts</div><div class="mv">381</div><div class="ms">In CRM</div></div>
     <div class="mc"><div class="ml" style="color:var(--gtx)">New</div><div class="mv" style="font-size:13px;margin-top:4px">Bayview Palms</div><div class="ms" style="color:var(--gtx)">$7.5M · 339 units</div></div>
   </div>
   <div class="co">
@@ -518,7 +518,7 @@ textarea{resize:vertical;min-height:140px;line-height:1.5}
 </div>
 
 <div id="toast" class="toast"></div>
-<div class="foot">HubSpot Command Center. Snapshot Oct 12, 2026. 13 deals. $66,600,969. 366 contacts. Task check-offs and doc progress save locally in this browser.</div>
+<div class="foot">HubSpot Command Center. Snapshot Oct 15, 2026. 13 deals. $66,600,969. 381 contacts. Task check-offs and doc progress save locally in this browser.</div>
 </div>
 <script>
 /* NAV */
@@ -666,7 +666,7 @@ const contacts=[
 {id:537485927144,n:"Kelly Kuhn",t:"",c:"LG Consultants",e:"Kelly@lgcfl.com"},
 {id:537368420029,n:"Art Prigun",t:"",c:"Valcourt",e:"aprigun@valcourt.net"},
 {id:537406683863,n:"MaryJo",t:"Property Manager",c:"SIG Management",e:"MaryJo@sigmgmt.com"},
-{id:537982427869,n:"David Di Marco",t:"",c:"The Falcon Group",e:""},
+{id:537982427869,n:"David Di Marco",t:"Director of National Capital Reserves",c:"The Falcon Group",e:"DDiMarco@thefalcongroup.us"},
 {id:537942371018,n:"Mike Rosen",t:"Chief Executive Officer",c:"Fortify Restoration",e:"mrosen@fortifyrestoration.com"},
 {id:530931949264,n:"Silvia Shafi",t:"HOA President",c:"Bay Towne Villas",e:"silviashafi52@gmail.com"},
 {id:530455701225,n:"Sean Merrell",t:"SVP of Business Development",c:"Stratus Roofing",e:"sean.merrell@StratusRoofing.com"},
@@ -881,6 +881,21 @@ const contacts=[
 {id:497189767918,n:"Anthony Modico",t:"Owner",c:"Deckline Roofing",e:"anthonym@decklineroofing.com"},
 {id:497189035769,n:"Jon Vogel",t:"Roofing Advisor",c:"Deckline Roofing",e:"jonv@decklineroofing.com"},
 {id:498974537431,n:"Sam Falk",t:"",c:"Deckline Roofing",e:"samf@decklineroofing.com"},
+{id:570475725551,n:"Sebastian Franco",t:"Managing Partner",c:"STQ Construction & Roofing",e:"info@stqconstruction.com"},
+{id:570394659570,n:"Esteban Yepes",t:"Senior Commercial Account Manager",c:"Sky Light Roofing Inc.",e:"eyepes@skylightroofing.com"},
+{id:570394659572,n:"Tyler Gaddy",t:"Director of Sales",c:"Janney Roofing",e:"tgaddy@janneyroofing.com"},
+{id:570416770802,n:"Troy Jones",t:"Senior Community Association Manager",c:"Leland Management",e:"TJones@LelandManagement.com"},
+{id:570455878364,n:"Adrien Escalera",t:"Senior Community Association Manager, CMCA",c:"Leland Management",e:"AEscalera@LelandManagement.com"},
+{id:570475884236,n:"Nicole Aldridge",t:"Public Claims Adjuster, PCA",c:"Ask An Adjuster",e:"NicoleA@AskAnAdjuster.com"},
+{id:570455878373,n:"Philip Jun Insisiengmay",t:"",c:"Ask An Adjuster",e:"JunI@AskAnAdjuster.com"},
+{id:570455806666,n:"Brandon East",t:"Business Development",c:"Shenandoah",e:"b.east@shenandoahus.com"},
+{id:570477426411,n:"Amanda Zabic",t:"Admin. & Business Development Coordinator",c:"Ray Engineering, Inc.",e:"azabic@ray-engineering.com"},
+{id:570432800460,n:"Jennie Shannon",t:"Director of Florida Division",c:"Kipcon",e:"JShannon@Kipcon.com"},
+{id:570457282287,n:"Derek Buchanan",t:"Building Science Consultant, CDT",c:"Certa Building Solutions",e:"dbuchanan@certasolutions.com"},
+{id:570476615413,n:"Alvin Whitmore",t:"Business Development Manager",c:"Skyline Elevators",e:"a.whitmore@skylineelevators.com"},
+{id:570454772428,n:"Floyd Parker",t:"Account Manager",c:"Sky Light Roofing Inc.",e:"Floyd@skylightroofing.com"},
+{id:570432800462,n:"Julie Hamoud",t:"Business Development Specialist",c:"EmpireWorks Reconstruction",e:"jhamoud@empireworks.com"},
+{id:570432800463,n:"Blake Bernstein",t:"Production Manager",c:"BFARR Contracting",e:"blake@bfarrcontracting.com"},
 ];
 function ini(name){return name.split(' ').map(w=>w[0]).filter(Boolean).slice(0,2).join('').toUpperCase();}
 function cHTML(c,i){return '<a class="cr" href="https://app.hubspot.com/contacts/246442896/record/0-1/'+c.id+'" target="_blank"><div class="av" style="'+avA[i%avA.length]+'">'+ini(c.n)+'</div><div class="ci"><div class="cn">'+c.n+'</div><div class="cm">'+(c.t||'No title')+' · '+(c.c||'')+'</div></div><div class="cx">'+(c.e||'')+'</div></a>';}
@@ -1100,6 +1115,7 @@ function drawDonut(){const canvas=document.getElementById('donut');if(!canvas)re
 
 /* ACTIVITY LOG */
 const activities=[
+  {date:"Oct 14",type:"email",who:"HOA and Condo Expo, Orlando (16 contacts)",detail:"Met David Di Marco (Falcon Group), Sebastian Franco (STQ), Esteban Yepes and Floyd Parker (Sky Light Roofing), Tyler Gaddy (Janney Roofing), Troy Jones and Adrien Escalera (Leland Management), Nicole Aldridge and Philip Jun Insisiengmay (Ask An Adjuster), Brandon East (Shenandoah), Amanda Zabic (Ray Engineering), Jennie Shannon (Kipcon), Derek Buchanan (Certa), Alvin Whitmore (Skyline Elevators), Julie Hamoud (EmpireWorks), Blake Bernstein (BFARR). 15 new contacts added, Di Marco updated.",deal:""},
   {date:"Oct 12",type:"call",who:"Jorge Cabada",detail:"Fortify Restoration. Emailed about Bayview Condo Roof, Art called him. Bayview Palms (Dome Condominium Association) deal created at $7.5M full refinance (about $5M existing plus $2.5M roof). Follow-up call set for Nov 2.",deal:"Bayview Palms"},
   {date:"Oct 9",type:"email",who:"Adam Ellis and Toni Gordon added",detail:"Adam Ellis (Centennial Bank) and Toni Gordon (Resource Property Management) met at the CAI Suncoast breakfast. Emails sent to all Suncoast breakfast contacts.",deal:""},
   {date:"Oct 8",type:"email",who:"CAI West breakfast contacts (3)",detail:"Nick Patel (Gulfside Painting), Ricky Gauthier (T.H.S. Plumbing), Ana Calderon (Valcourt). Intro emails sent.",deal:""},

@@ -910,6 +910,9 @@ function fc(){const q=document.getElementById('c-search').value.toLowerCase();co
 const TKEY='cc_tasks_v5';
 let tDone=JSON.parse(localStorage.getItem(TKEY)||'{}');
 const tasks=[
+  {id:'410201661173',ts:'2026-10-29',s:'Follow up with Nathan Atkin (Hartzell Construction, Galleon)',b:'Intro email sent Oct 22. Hartzell is the contractor on the Galleon building $30MM project.',y:'TODO',d:'Thu Oct 29',c:''},
+  {id:'410336929508',ts:'2026-10-29',s:'Follow up with Drew Hanslip (Hartzell Construction, Galleon)',b:'Intro email sent Oct 22. Hartzell is the contractor on the Galleon building $30MM project.',y:'TODO',d:'Thu Oct 29',c:''},
+  {id:'410353007293',ts:'2026-10-29',s:'Follow up with Carlos Gonzalez (Hartzell Construction, Galleon)',b:'Intro email sent Oct 22. Hartzell is the contractor on the Galleon building $30MM project.',y:'TODO',d:'Thu Oct 29',c:''},
   {id:'406397188850',ts:'2026-11-02',s:'Follow up with Jorge Cabada (Bayview Palms $7.5M refinance + roof)',b:'3-week follow-up call. Fortify Restoration. Bayview Palms (Dome Condominium Association) full refinance about $7.5M. jcabada@fortifyrestoration.com',y:'CALL',d:'Mon Nov 2',c:''},
   {id:'405573770979',ts:'2026-10-14',s:'Call Diego Serpa (Advanced Structural Solutions)',b:'Follow up by phone after follow up email. Met at the Palm Beach HOA and Condo Expo.',y:'CALL',d:'Wed Oct 14',c:''},
   {id:'405573248725',ts:'2026-10-14',s:'Call Adam Rovner (Munyan Painting)',b:'Follow up by phone after follow up email. Met at the Palm Beach HOA and Condo Expo.',y:'CALL',d:'Wed Oct 14',c:''},
@@ -1119,6 +1122,7 @@ function drawDonut(){const canvas=document.getElementById('donut');if(!canvas)re
 
 /* ACTIVITY LOG */
 const activities=[
+  {date:"Oct 22",type:"email",who:"Hartzell Construction (3 contacts)",detail:"Intro emails sent to Nathan Atkin, Drew Hanslip and Carlos Gonzalez. Follow-up tasks set for Thu Oct 29.",deal:"The Galleon Condominiums"},
   {date:"Oct 22",type:"call",who:"Hartzell Construction (3 contacts)",detail:"Added Nathan Atkin (COO), Drew Hanslip (Sales Project Manager) and Carlos Gonzalez (Director of Operations). Hartzell is the contractor on the Galleon building $30MM project. Deal created for The Galleon Condominiums (18 stories, about 214 units, 4100 Galt Ocean Drive, Fort Lauderdale). Amount TBD.",deal:"The Galleon Condominiums"},
   {date:"Oct 19",type:"email",who:"HOA and Condo Expo contacts (16)",detail:"Follow-up email sent to all 16 Orlando expo contacts (Di Marco, Franco, Yepes, Parker, Gaddy, Jones, Escalera, Aldridge, Insisiengmay, East, Zabic, Shannon, Buchanan, Whitmore, Hamoud, Bernstein).",deal:""},
   {date:"Oct 14",type:"email",who:"HOA and Condo Expo, Orlando (16 contacts)",detail:"Met David Di Marco (Falcon Group), Sebastian Franco (STQ), Esteban Yepes and Floyd Parker (Sky Light Roofing), Tyler Gaddy (Janney Roofing), Troy Jones and Adrien Escalera (Leland Management), Nicole Aldridge and Philip Jun Insisiengmay (Ask An Adjuster), Brandon East (Shenandoah), Amanda Zabic (Ray Engineering), Jennie Shannon (Kipcon), Derek Buchanan (Certa), Alvin Whitmore (Skyline Elevators), Julie Hamoud (EmpireWorks), Blake Bernstein (BFARR). 15 new contacts added, Di Marco updated.",deal:""},
